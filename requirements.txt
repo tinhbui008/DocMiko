@@ -1,0 +1,8 @@
+pypdfium2==4.30.0
+paddlepaddle==2.6.2
+paddleocr==2.9.1
+Pillow==10.4.0
+opencv-python==4.10.0.84
+numpy==1.26.4
+openai==1.54.0
+python-dotenv==1.0.1

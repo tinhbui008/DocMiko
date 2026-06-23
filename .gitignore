@@ -1,0 +1,26 @@
+@"
+# Secrets
+.env
+*.key
+*.pem
+
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# Output files
+output_*.png
+output_*.txt
+*.pdf
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+Thumbs.db
+.DS_Store
+"@ | Out-File -Encoding utf8 .gitignore

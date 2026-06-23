@@ -1,0 +1,211 @@
+{
+  "source_pdf": "test_vietnamese.pdf",
+  "target_language": "Vietnamese",
+  "pages": [
+    {
+      "page": 1,
+      "image_size": [
+        1224,
+        1584
+      ],
+      "paragraphs": [
+        {
+          "box": [
+            120.0,
+            122.0,
+            970.0,
+            239.0
+          ],
+          "num_lines": 2,
+          "original": "ELORIDA SMALL BUSINESS EMERGENCY BRIDGE LOAN PROGRAM",
+          "translated": "CHƯƠNG TRÌNH VAY CẤP CẤP CỨU PHỤC HỒI KHẨN CẤP CHO DOANH NGHIỆP NHỎ CỦA FLORIDA"
+        },
+        {
+          "box": [
+            110.0,
+            287.0,
+            1094.0,
+            477.0
+          ],
+          "num_lines": 6,
+          "original": "The Florida Small Business Emergency Bridge Loan program provides short-term, zero-interest working capital loans that are intended to \"bridge the gap\" between the time a disaster impacts a business and when a business has secured longer term recovery funding such as federally or commercially available loans, insurance claims or other resources. Loans are available up to $50,000 per eligible applicant and loans made under this program are short-term, personal loans using State of Florida funds - they are not grants and must be repaid. Florida Small Business",
+          "translated": "Chương trình vay cấp cứu phục hồi khẩn cấp cho doanh nghiệp nhỏ của Florida cung cấp các khoản vay vốn lưu động ngắn hạn, không tính lãi, nhằm mục đích \"lấp đầy khoảng trống\" giữa thời điểm một thảm họa ảnh hưởng đến doanh nghiệp và khi doanh nghiệp đã đảm bảo được nguồn vốn phục hồi dài hạn như các khoản vay liên bang hoặc thương mại, các yêu cầu bảo hiểm hoặc các nguồn lực khác. Các khoản vay có sẵn lên đến $50,000 cho mỗi ứng viên đủ điều kiện và các khoản vay được thực hiện theo chương trình này là các khoản vay ngắn hạn, cá nhân sử dụng nguồn vốn của Tiểu bang Florida - chúng không phải là các khoản tài trợ và phải được hoàn trả. Doanh nghiệp nhỏ của Florida"
+        },
+        {
+          "box": [
+            111.0,
+            513.0,
+            1093.0,
+            564.0
+          ],
+          "num_lines": 2,
+          "original": "term financial resources, such as U.S. Small Business Administration economic injury disaster loans, to repay the Emergency Bridge Loan.",
+          "translated": "nguồn lực tài chính dài hạn, chẳng hạn như các khoản vay thiệt hại kinh tế do thảm họa của Cơ quan Quản lý Doanh nghiệp Nhỏ của Hoa Kỳ, để trả nợ khoản vay Cầu nối Cấp cứu."
+        },
+        {
+          "box": [
+            225.0,
+            619.0,
+            472.0,
+            640.0
+          ],
+          "num_lines": 1,
+          "original": "Learn more and apply for a",
+          "translated": "Tìm hiểu thêm và nộp đơn cho một"
+        },
+        {
+          "box": [
+            650.0,
+            634.0,
+            717.0,
+            652.0
+          ],
+          "num_lines": 1,
+          "original": "POWERED",
+          "translated": "POWERED"
+        },
+        {
+          "box": [
+            223.0,
+            640.0,
+            539.0,
+            665.0
+          ],
+          "num_lines": 1,
+          "original": "Florida Small Business Emergency",
+          "translated": "Tình Huống Khẩn Cấp Doanh Nghiệp Nhỏ Florida"
+        },
+        {
+          "box": [
+            723.0,
+            639.0,
+            1108.0,
+            667.0
+          ],
+          "num_lines": 1,
+          "original": "FLORIDACMMERCE",
+          "translated": "FLORIDACOMMERCE"
+        },
+        {
+          "box": [
+            698.0,
+            655.0,
+            713.0,
+            665.0
+          ],
+          "num_lines": 1,
+          "original": "BY",
+          "translated": "BY"
+        },
+        {
+          "box": [
+            226.0,
+            667.0,
+            338.0,
+            685.0
+          ],
+          "num_lines": 1,
+          "original": "Bridge Loan",
+          "translated": "Khoản Vay Cầu"
+        }
+      ]
+    },
+    {
+      "page": 2,
+      "image_size": [
+        1224,
+        1584
+      ],
+      "paragraphs": [
+        {
+          "box": [
+            120.0,
+            127.0,
+            846.0,
+            241.0
+          ],
+          "num_lines": 2,
+          "original": "LOCAL GOVERNMENT EMERGENCY REVOLVING BRIDGE LOAN",
+          "translated": "CHƯƠNG TRÌNH VAY QUAY VỐN CẤP CỨU CHÍNH QUYỀN ĐỊA PHƯƠNG"
+        },
+        {
+          "box": [
+            113.0,
+            290.0,
+            1086.0,
+            477.0
+          ],
+          "num_lines": 6,
+          "original": "The Local Government Emergency Revolving Bridge Loan Program is managed by FloridaCommerce and provides interest free loans to local governments throughout Florida that were impacted by federally declared disasters. More than $40 million is available to fund governmental operations within these Florida counties and municipalities and bridge the gap between the time of the disaster and the time additional funding sources or revenues are secured.\"Governmental Operations\" includes costs associated with continuing, expanding or",
+          "translated": "Chương trình Vay Quay Cấp Cứu Chính Quyền Địa Phương được quản lý bởi FloridaCommerce và cung cấp các khoản vay không lãi suất cho các chính quyền địa phương trên toàn Florida bị ảnh hưởng bởi các thảm họa được tuyên bố bởi liên bang. Hơn 40 triệu đô la có sẵn để tài trợ cho các hoạt động của chính quyền trong các hạt và đô thị của Florida này và bắc cầu khoảng thời gian giữa thời điểm thảm họa và thời điểm nguồn tài trợ hoặc doanh thu bổ sung được đảm bảo. \"Hoạt Động Chính Quyền\" bao gồm các chi phí liên quan đến việc tiếp tục, mở rộng hoặc"
+        },
+        {
+          "box": [
+            113.0,
+            513.0,
+            422.0,
+            535.0
+          ],
+          "num_lines": 1,
+          "original": "limited to, staff salaries and payroll.",
+          "translated": "bao gồm cả, lương và bảng lương của nhân viên."
+        },
+        {
+          "box": [
+            238.0,
+            591.0,
+            574.0,
+            612.0
+          ],
+          "num_lines": 1,
+          "original": "Learn more about Local Government",
+          "translated": "Tìm hiểu thêm về Chính Quyền Địa Phương"
+        },
+        {
+          "box": [
+            650.0,
+            594.0,
+            728.0,
+            612.0
+          ],
+          "num_lines": 1,
+          "original": "POWERED",
+          "translated": "ĐƯỢC CUNG CẤP"
+        },
+        {
+          "box": [
+            722.0,
+            594.0,
+            1109.0,
+            629.0
+          ],
+          "num_lines": 1,
+          "original": "FLORIDACOMMERCE",
+          "translated": "FLORIDACOMMERCE"
+        },
+        {
+          "box": [
+            695.0,
+            614.0,
+            718.0,
+            625.0
+          ],
+          "num_lines": 1,
+          "original": "BY:",
+          "translated": "BỞI:"
+        },
+        {
+          "box": [
+            238.0,
+            612.0,
+            640.0,
+            658.0
+          ],
+          "num_lines": 2,
+          "original": "Emergency Bridge Loans or email: LocalGovernmentBridge@Commerce.FL.gov",
+          "translated": "Khoản Vay Cầu Cấp Cứu hoặc email: LocalGovernmentBridge@Commerce.FL.gov"
+        }
+      ]
+    }
+  ]
+}
