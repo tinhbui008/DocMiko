@@ -69,7 +69,7 @@
                   "size": 33.997718811035156,
                   "color": 16777215,
                   "flags": 4,
-                  "is_bold": true,
+                  "is_bold": false,
                   "is_italic": false
                 }
               ]
@@ -79,7 +79,7 @@
           "order": 0,
           "align": "left",
           "original_text": "CXVIEW GPT Box",
-          "translated_text": ""
+          "translated_text": "Hộp CXVIEW GPT"
         },
         {
           "id": "p0_para1",
@@ -111,7 +111,7 @@
                   "size": 33.997718811035156,
                   "color": 16777215,
                   "flags": 4,
-                  "is_bold": true,
+                  "is_bold": false,
                   "is_italic": false
                 }
               ]
@@ -121,7 +121,7 @@
           "order": 1,
           "align": "left",
           "original_text": "& AI Video Analytics",
-          "translated_text": ""
+          "translated_text": "& Phân tích Video AI"
         },
         {
           "id": "p0_para2",
@@ -163,7 +163,7 @@
           "order": 2,
           "align": "left",
           "original_text": "Client Challenges. CXVIEW Solutions. Business Impacts.",
-          "translated_text": ""
+          "translated_text": "Thách thức KH. Giải pháp CXVIEW. Tác động KD."
         },
         {
           "id": "p0_para3",
@@ -205,7 +205,7 @@
           "order": 3,
           "align": "left",
           "original_text": "From conservative CCTV infrastructure to real-time intelligence, operational automation",
-          "translated_text": ""
+          "translated_text": "Từ hạ tầng CCTV truyền thống đến trí tuệ thời gian thực, tự động hóa vận hành"
         },
         {
           "id": "p0_para4",
@@ -247,7 +247,7 @@
           "order": 4,
           "align": "left",
           "original_text": "and business-performance reporting.",
-          "translated_text": ""
+          "translated_text": "và báo cáo hiệu suất kinh doanh"
         },
         {
           "id": "p0_para5",
@@ -289,7 +289,7 @@
           "order": 5,
           "align": "left",
           "original_text": "ABOUT CXVIEW",
-          "translated_text": ""
+          "translated_text": "GIỚI THIỆU CXVIEW"
         },
         {
           "id": "p0_para6",
@@ -331,7 +331,7 @@
           "order": 6,
           "align": "left",
           "original_text": "Founded in 2021 and headquartered in HCMC, CXVIEW builds AI infrastructure for the physical world.",
-          "translated_text": ""
+          "translated_text": "Thành lập năm 2021 và đặt trụ sở tại TP.HCM, CXVIEW xây dựng hạ tầng AI cho thế giới thực."
         },
         {
           "id": "p0_para7",
@@ -373,7 +373,7 @@
           "order": 7,
           "align": "left",
           "original_text": "We specialize in AI Video Analytics and Edge Intelligence, transforming existing camera systems into",
-          "translated_text": ""
+          "translated_text": "Chúng tôi chuyên về AI Video Analytics và Trí tuệ biên, biến hệ thống camera hiện có thành"
         },
         {
           "id": "p0_para8",
@@ -415,7 +415,7 @@
           "order": 8,
           "align": "left",
           "original_text": "real-time decision engines.",
-          "translated_text": ""
+          "translated_text": "công cụ quyết định thời gian thực"
         },
         {
           "id": "p0_para9",
@@ -457,7 +457,7 @@
           "order": 9,
           "align": "left",
           "original_text": "We go beyond traditional surveillance by delivering on-site AI processing, enabling enterprises to",
-          "translated_text": ""
+          "translated_text": "Vượt trên giám sát truyền thống, chúng tôi xử lý AI tại chỗ, giúp doanh nghiệp"
         },
         {
           "id": "p0_para10",
@@ -499,7 +499,7 @@
           "order": 10,
           "align": "left",
           "original_text": "operate with speed, control, and data sovereignty.",
-          "translated_text": ""
+          "translated_text": "vận hành nhanh, kiểm soát và làm chủ dữ liệu."
         }
       ]
     },
@@ -637,7 +637,7 @@
                   "size": 11.999192237854004,
                   "color": 1252186,
                   "flags": 4,
-                  "is_bold": true,
+                  "is_bold": false,
                   "is_italic": false
                 }
               ]
@@ -647,7 +647,7 @@
           "order": 0,
           "align": "left",
           "original_text": "CXVIEW SMART AI VIDEO ANALYTICS SOLUTION",
-          "translated_text": ""
+          "translated_text": "GIẢI PHÁP AI Video Analytics THÔNG MINH CXVIEW"
         },
         {
           "id": "p1_para1",
@@ -689,7 +689,7 @@
           "order": 1,
           "align": "left",
           "original_text": "All-inclusive managed packages with dedicated AI-powered concurrent stream monitoring. Select the tier that best aligns with your deployment scale and operational requirements.",
-          "translated_text": ""
+          "translated_text": "Gói dịch vụ quản lý trọn gói với giám sát luồng AI đồng thời chuyên dụng. Chọn cấp độ phù hợp nhất với quy mô triển khai và yêu cầu vận hành của bạn."
         },
         {
           "id": "p1_para2",
@@ -731,7 +731,7 @@
           "order": 2,
           "align": "left",
           "original_text": "Concurrent AI Streams",
-          "translated_text": ""
+          "translated_text": "Luồng AI đồng thời"
         },
         {
           "id": "p1_para3",
@@ -773,7 +773,7 @@
           "order": 3,
           "align": "left",
           "original_text": "Package",
-          "translated_text": ""
+          "translated_text": "Gói"
         },
         {
           "id": "p1_para4",
@@ -815,7 +815,7 @@
           "order": 4,
           "align": "left",
           "original_text": "Tier",
-          "translated_text": ""
+          "translated_text": "Cấp"
         },
         {
           "id": "p1_para5",
@@ -857,7 +857,7 @@
           "order": 5,
           "align": "left",
           "original_text": "Cameras",
-          "translated_text": ""
+          "translated_text": "Camera"
         },
         {
           "id": "p1_para6",
@@ -899,7 +899,7 @@
           "order": 6,
           "align": "left",
           "original_text": "Monthly (USD)",
-          "translated_text": ""
+          "translated_text": "Hàng tháng\n(USD)"
         },
         {
           "id": "p1_para7",
@@ -941,7 +941,7 @@
           "order": 7,
           "align": "left",
           "original_text": "24-Month (USD)",
-          "translated_text": ""
+          "translated_text": "24 tháng\n(USD)"
         },
         {
           "id": "p1_para8",
@@ -983,7 +983,7 @@
           "order": 8,
           "align": "left",
           "original_text": "36-Month (USD)",
-          "translated_text": ""
+          "translated_text": "36 tháng\n(USD)"
         },
         {
           "id": "p1_para9",
@@ -1025,7 +1025,7 @@
           "order": 9,
           "align": "left",
           "original_text": "Active on AI models existed",
-          "translated_text": ""
+          "translated_text": "trên mô hình AI hiện có"
         },
         {
           "id": "p1_para10",
@@ -2117,7 +2117,7 @@
           "order": 35,
           "align": "left",
           "original_text": "Concurrent AI Stream Ratio",
-          "translated_text": ""
+          "translated_text": "Tỷ lệ luồng AI đồng thời"
         },
         {
           "id": "p1_para36",
@@ -2159,7 +2159,7 @@
           "order": 36,
           "align": "left",
           "original_text": "Billing Flexibility",
-          "translated_text": ""
+          "translated_text": "Linh hoạt thanh toán"
         },
         {
           "id": "p1_para37",
@@ -2256,7 +2256,7 @@
           "order": 37,
           "align": "left",
           "original_text": "Every package delivers with a CXVIEW AI existing model available for each camera ensuring\ncomprehensive, real-time analytics coverage across all connected feeds, 24 hours a day, 7 days a week.",
-          "translated_text": ""
+          "translated_text": "Mỗi gói đều đi kèm mô hình AI CXVIEW có sẵn cho từng camera, đảm bảo phân tích toàn diện theo thời gian thực trên mọi luồng kết nối, 24 giờ mỗi ngày, 7 ngày mỗi tuần."
         },
         {
           "id": "p1_para38",
@@ -2353,7 +2353,7 @@
           "order": 38,
           "align": "left",
           "original_text": "All tiers are available on a cycle of monthly or annual billing with a minimum 24-month commitment\nrequired. Greater tiers provides better saving for more cameras activated",
-          "translated_text": ""
+          "translated_text": "Tất cả các gói được tính phí theo chu kỳ hàng tháng hoặc hàng năm, với cam kết tối thiểu 24 tháng. Gói cao hơn mang lại tiết kiệm tốt hơn khi kích hoạt nhiều camera hơn."
         },
         {
           "id": "p1_para39",
@@ -2395,7 +2395,7 @@
           "order": 39,
           "align": "left",
           "original_text": "All packages are fully managed end-to-end. Pricing is quoted in USD. Note that all plan requires a minimum 24-month commitment, implementation cost is not yet included as based on actual customer's layout. Contact your Hong Kong",
-          "translated_text": ""
+          "translated_text": "Tất cả các gói được quản lý trọn gói đầu cuối. Giá niêm yết bằng USD. Lưu ý mọi gói đều yêu cầu cam kết tối thiểu 24 tháng, chi phí triển khai chưa bao gồm vì tùy theo bố trí thực tế của khách hàng. Liên hệ đại diện Hong Kong"
         },
         {
           "id": "p1_para40",
@@ -2437,7 +2437,7 @@
           "order": 40,
           "align": "left",
           "original_text": "channel representative for local currency conversion, volume discounts, or custom tier configurations exceeding 50 cameras.",
-          "translated_text": ""
+          "translated_text": "đại diện kênh tại địa phương để quy đổi tiền tệ, chiết khấu số lượng hoặc cấu hình gói tùy chỉnh vượt 50 camera"
         }
       ]
     },
@@ -2641,7 +2641,7 @@
                   "size": 11.999192237854004,
                   "color": 1252186,
                   "flags": 4,
-                  "is_bold": true,
+                  "is_bold": false,
                   "is_italic": false
                 }
               ]
@@ -2651,7 +2651,7 @@
           "order": 0,
           "align": "left",
           "original_text": "OUR SOLUTIONS",
-          "translated_text": ""
+          "translated_text": "GIẢI PHÁP"
         },
         {
           "id": "p2_para1",
@@ -2718,7 +2718,7 @@
           "order": 1,
           "align": "left",
           "original_text": "Camera Tampering\nDetection",
-          "translated_text": ""
+          "translated_text": "Can thiệp camera"
         },
         {
           "id": "p2_para2",
@@ -2785,7 +2785,7 @@
           "order": 2,
           "align": "left",
           "original_text": "Vehicle\nPlate Recognition",
-          "translated_text": ""
+          "translated_text": "Nhận dạng biển số"
         },
         {
           "id": "p2_para3",
@@ -2852,7 +2852,7 @@
           "order": 3,
           "align": "left",
           "original_text": "Unattended\nObject Detection",
-          "translated_text": ""
+          "translated_text": "Vật thể bỏ quên"
         },
         {
           "id": "p2_para4",
@@ -2919,7 +2919,7 @@
           "order": 4,
           "align": "left",
           "original_text": "Patrol Automatic\nReport",
-          "translated_text": ""
+          "translated_text": "Báo cáo tuần tra"
         },
         {
           "id": "p2_para5",
@@ -2951,7 +2951,7 @@
                   "size": 10.999260902404785,
                   "color": 8214230,
                   "flags": 4,
-                  "is_bold": true,
+                  "is_bold": false,
                   "is_italic": false
                 }
               ]
@@ -2976,7 +2976,7 @@
                   "size": 10.999260902404785,
                   "color": 8214230,
                   "flags": 4,
-                  "is_bold": true,
+                  "is_bold": false,
                   "is_italic": false
                 }
               ]
@@ -2986,7 +2986,7 @@
           "order": 5,
           "align": "left",
           "original_text": "AI CAMERA\nIN SECURITY",
-          "translated_text": ""
+          "translated_text": "AI CAMERA\nAN NINH"
         },
         {
           "id": "p2_para6",
@@ -3078,7 +3078,7 @@
           "order": 6,
           "align": "left",
           "original_text": "Fence and Wall\nClimbing\nDetection",
-          "translated_text": ""
+          "translated_text": "Leo rào/tường"
         },
         {
           "id": "p2_para7",
@@ -3145,7 +3145,7 @@
           "order": 7,
           "align": "left",
           "original_text": "Intrusion\nDetection",
-          "translated_text": ""
+          "translated_text": "Xâm nhập"
         },
         {
           "id": "p2_para8",
@@ -3237,7 +3237,7 @@
           "order": 8,
           "align": "left",
           "original_text": "Customer\nDemographic\nAnalysis",
-          "translated_text": ""
+          "translated_text": "Nhân khẩu học"
         },
         {
           "id": "p2_para9",
@@ -3329,7 +3329,7 @@
           "order": 9,
           "align": "left",
           "original_text": "Customer\nEngagement\nDetection",
-          "translated_text": ""
+          "translated_text": "Tương tác khách hàng"
         },
         {
           "id": "p2_para10",
@@ -3421,7 +3421,7 @@
           "order": 10,
           "align": "left",
           "original_text": "Smart\nWorkstation\nMonitoring",
-          "translated_text": ""
+          "translated_text": "Giám sát trạm"
         },
         {
           "id": "p2_para11",
@@ -3488,7 +3488,7 @@
           "order": 11,
           "align": "left",
           "original_text": "Product Quality\nInspection",
-          "translated_text": ""
+          "translated_text": "Kiểm tra chất lượng"
         },
         {
           "id": "p2_para12",
@@ -3580,7 +3580,7 @@
           "order": 12,
           "align": "left",
           "original_text": "Heat Maps &\nRoute Maps\nAnalysis",
-          "translated_text": ""
+          "translated_text": "Bản đồ nhiệt/lộ trình"
         },
         {
           "id": "p2_para13",
@@ -3612,7 +3612,7 @@
                   "size": 10.999260902404785,
                   "color": 8214230,
                   "flags": 4,
-                  "is_bold": true,
+                  "is_bold": false,
                   "is_italic": false
                 }
               ]
@@ -3637,7 +3637,7 @@
                   "size": 10.999260902404785,
                   "color": 8214230,
                   "flags": 4,
-                  "is_bold": true,
+                  "is_bold": false,
                   "is_italic": false
                 }
               ]
@@ -3647,7 +3647,7 @@
           "order": 13,
           "align": "left",
           "original_text": "AI CAMERA IN\nOPERATION",
-          "translated_text": ""
+          "translated_text": "AI CAMERA\nVẬN HÀNH"
         },
         {
           "id": "p2_para14",
@@ -3689,7 +3689,7 @@
           "order": 14,
           "align": "left",
           "original_text": "Traffic Counting",
-          "translated_text": ""
+          "translated_text": "Đếm lưu lượng"
         },
         {
           "id": "p2_para15",
@@ -3756,7 +3756,7 @@
           "order": 15,
           "align": "left",
           "original_text": "Automated\nProduct Counting",
-          "translated_text": ""
+          "translated_text": "Đếm sản phẩm"
         },
         {
           "id": "p2_para16",
@@ -3823,7 +3823,7 @@
           "order": 16,
           "align": "left",
           "original_text": "Dwell time\nReport",
-          "translated_text": ""
+          "translated_text": "Thời gian lưu lại"
         },
         {
           "id": "p2_para17",
@@ -3890,7 +3890,7 @@
           "order": 17,
           "align": "left",
           "original_text": "Table Cleaning\nDetection",
-          "translated_text": ""
+          "translated_text": "Dọn bàn"
         },
         {
           "id": "p2_para18",
@@ -3982,7 +3982,7 @@
           "order": 18,
           "align": "left",
           "original_text": "Forklift and\nVehicle Safety\nDetection",
-          "translated_text": ""
+          "translated_text": "An toàn xe nâng"
         },
         {
           "id": "p2_para19",
@@ -4049,7 +4049,7 @@
           "order": 19,
           "align": "left",
           "original_text": "Falls and\nSlips Detection",
-          "translated_text": ""
+          "translated_text": "Té ngã/trượt"
         },
         {
           "id": "p2_para20",
@@ -4116,7 +4116,7 @@
           "order": 20,
           "align": "left",
           "original_text": "Unusual Crowd\nDetection",
-          "translated_text": ""
+          "translated_text": "Đám đông bất thường"
         },
         {
           "id": "p2_para21",
@@ -4183,7 +4183,7 @@
           "order": 21,
           "align": "left",
           "original_text": "PPE and Uniform\nDetection",
-          "translated_text": ""
+          "translated_text": "PPE & đồng phục"
         },
         {
           "id": "p2_para22",
@@ -4215,7 +4215,7 @@
                   "size": 10.999260902404785,
                   "color": 8214230,
                   "flags": 4,
-                  "is_bold": true,
+                  "is_bold": false,
                   "is_italic": false
                 }
               ]
@@ -4240,7 +4240,7 @@
                   "size": 10.999260902404785,
                   "color": 8214230,
                   "flags": 4,
-                  "is_bold": true,
+                  "is_bold": false,
                   "is_italic": false
                 }
               ]
@@ -4250,7 +4250,7 @@
           "order": 22,
           "align": "left",
           "original_text": "AI CAMERA IN\nSAFETY",
-          "translated_text": ""
+          "translated_text": "AI CAMERA\nAN TOÀN"
         },
         {
           "id": "p2_para23",
@@ -4317,7 +4317,7 @@
           "order": 23,
           "align": "left",
           "original_text": "Smoke and\nFire Detection",
-          "translated_text": ""
+          "translated_text": "Khói/lửa"
         },
         {
           "id": "p2_para24",
@@ -4384,7 +4384,7 @@
           "order": 24,
           "align": "left",
           "original_text": "Fighting\nDetection",
-          "translated_text": ""
+          "translated_text": "Đánh nhau"
         }
       ]
     },
@@ -4486,7 +4486,7 @@
                   "size": 11.999192237854004,
                   "color": 1252186,
                   "flags": 4,
-                  "is_bold": true,
+                  "is_bold": false,
                   "is_italic": false
                 }
               ]
@@ -4496,7 +4496,7 @@
           "order": 0,
           "align": "left",
           "original_text": "OUR PROCESS",
-          "translated_text": ""
+          "translated_text": "QUY TRÌNH"
         },
         {
           "id": "p3_para1",
@@ -4578,7 +4578,7 @@
           "order": 1,
           "align": "left",
           "original_text": "We promise results\nwithin 30 days and ROI in 60 days.",
-          "translated_text": ""
+          "translated_text": "Chúng tôi cam kết có kết quả trong 30 ngày và ROI trong 60 ngày."
         },
         {
           "id": "p3_para2",
@@ -4670,7 +4670,7 @@
           "order": 2,
           "align": "left",
           "original_text": "CXVIEW delivers measurable business impact on an\naggressive timeline that respects your operational\nurgency, going beyond mere software deployment.",
-          "translated_text": ""
+          "translated_text": "CXVIEW mang lại tác động kinh doanh đo lường được trong lộ trình nhanh chóng, tôn trọng tính cấp thiết vận hành của bạn, vượt xa việc triển khai phần mềm đơn thuần."
         },
         {
           "id": "p3_para3",
@@ -4712,7 +4712,7 @@
           "order": 3,
           "align": "left",
           "original_text": "Scale & Sustain",
-          "translated_text": ""
+          "translated_text": "Mở rộng & duy trì"
         },
         {
           "id": "p3_para4",
@@ -4834,7 +4834,7 @@
           "order": 4,
           "align": "left",
           "original_text": "•Full-scale implementation.\n•Ongoing training, support &\nmaintenance.",
-          "translated_text": ""
+          "translated_text": "• Triển khai toàn diện.\n• Đào tạo, hỗ trợ & bảo trì liên tục"
         },
         {
           "id": "p3_para5",
@@ -4876,7 +4876,7 @@
           "order": 5,
           "align": "left",
           "original_text": "Pilot (POC) & Validation",
-          "translated_text": ""
+          "translated_text": "Pilot (POC) & xác thực"
         },
         {
           "id": "p3_para6",
@@ -4973,7 +4973,7 @@
           "order": 6,
           "align": "left",
           "original_text": "•Kick-off & deploy at selected pilot site.\n•Test, evaluate, and validate the results.",
-          "translated_text": ""
+          "translated_text": "• Khởi động & triển khai tại địa điểm thí điểm.\n• Kiểm thử, đánh giá và xác thực kết quả."
         },
         {
           "id": "p3_para7",
@@ -5040,7 +5040,7 @@
           "order": 7,
           "align": "left",
           "original_text": "Book your\nLive demo",
-          "translated_text": ""
+          "translated_text": "Đặt lịch\ndemo"
         },
         {
           "id": "p3_para8",
@@ -5082,7 +5082,7 @@
           "order": 8,
           "align": "left",
           "original_text": "Tailored Solution Architecture",
-          "translated_text": ""
+          "translated_text": "Kiến trúc giải pháp tùy chỉnh"
         },
         {
           "id": "p3_para9",
@@ -5229,7 +5229,7 @@
           "order": 9,
           "align": "left",
           "original_text": "•Tailor “made-to-fit” solutions to\nyour needs.\n•Propose a clear implementation\nplan & business benefits.",
-          "translated_text": ""
+          "translated_text": "• Giải pháp \"may đo\" theo nhu cầu của bạn.\n• Đề xuất kế hoạch triển khai rõ ràng & lợi ích kinh doanh"
         },
         {
           "id": "p3_para10",
@@ -5271,7 +5271,7 @@
           "order": 10,
           "align": "left",
           "original_text": "OUR PROCESS",
-          "translated_text": ""
+          "translated_text": "QUY TRÌNH"
         },
         {
           "id": "p3_para11",
@@ -5313,7 +5313,7 @@
           "order": 11,
           "align": "left",
           "original_text": "Strategic Understanding",
-          "translated_text": ""
+          "translated_text": "Thấu hiểu chiến lược"
         },
         {
           "id": "p3_para12",
@@ -5370,7 +5370,7 @@
           "order": 12,
           "align": "left",
           "original_text": "•Understand your goals, challenges and objectives.",
-          "translated_text": ""
+          "translated_text": "• Hiểu rõ mục tiêu, thách thức của bạn."
         },
         {
           "id": "p3_para13",
@@ -5427,7 +5427,7 @@
           "order": 13,
           "align": "left",
           "original_text": "•Assess current systems & environment.",
-          "translated_text": ""
+          "translated_text": "• Đánh giá hệ thống & môi trường"
         }
       ]
     },
@@ -5499,7 +5499,7 @@
                   "size": 11.999192237854004,
                   "color": 1252186,
                   "flags": 4,
-                  "is_bold": true,
+                  "is_bold": false,
                   "is_italic": false
                 }
               ]
@@ -5509,7 +5509,7 @@
           "order": 0,
           "align": "left",
           "original_text": "PLATFORM & TECHNOLOGY",
-          "translated_text": ""
+          "translated_text": "NỀN TẢNG & CÔNG NGHỆ"
         },
         {
           "id": "p4_para1",
@@ -5551,7 +5551,7 @@
           "order": 1,
           "align": "left",
           "original_text": "How CXVIEW Delivers the Transformation",
-          "translated_text": ""
+          "translated_text": "CXVIEW triển khai chuyển đổi"
         },
         {
           "id": "p4_para2",
@@ -5933,7 +5933,7 @@
           "order": 2,
           "align": "left",
           "original_text": "CXVIEWdeliversanedgeintelligencelayerthatintegratesseamlesslywithexistingCCTV, POSorAPIsystems, andoperationaldashboards, withoutrequiringinfrastructurereplacement.Asingle\nedge device transforms video streams into actionable operational insights.",
-          "translated_text": ""
+          "translated_text": "CXVIEW cung cấp lớp trí tuệ biên tích hợp liền mạch với hệ thống CCTV, POS hoặc API hiện có cùng các bảng điều khiển vận hành, mà không cần thay thế hạ tầng. Một thiết bị biên duy nhất biến luồng video thành thông tin vận hành có thể hành động."
         },
         {
           "id": "p4_para3",
@@ -6255,7 +6255,7 @@
           "order": 3,
           "align": "left",
           "original_text": "Deploymentisnondisruptive. ThesolutionconnectsthroughRTSP, ONVIF, orexistingVMSplatforms, enablingrapidintegrationwithminimal downtime. All processingrunsonpremise, ensuring\nlow latency performance, efficient bandwidth usage, and full data control, which are essential for manufacturing and industrial environments.",
-          "translated_text": ""
+          "translated_text": "Triển khai không gây gián đoạn. Giải pháp kết nối qua RTSP, ONVIF hoặc nền tảng VMS hiện có, cho phép tích hợp nhanh với thời gian ngừng tối thiểu. Mọi xử lý chạy tại chỗ, đảm bảo hiệu năng độ trễ thấp, dùng băng thông hiệu quả và kiểm soát dữ liệu toàn diện, thiết yếu cho môi trường sản xuất và công nghiệp."
         },
         {
           "id": "p4_para4",
@@ -6297,7 +6297,7 @@
           "order": 4,
           "align": "left",
           "original_text": "Customer On - Premise AI Vision Infrastructure",
-          "translated_text": ""
+          "translated_text": "Hạ tầng AI Vision tại chỗ"
         },
         {
           "id": "p4_para5",
@@ -6339,7 +6339,7 @@
           "order": 5,
           "align": "left",
           "original_text": "Why a Transformation Partner is Essential",
-          "translated_text": ""
+          "translated_text": "Vì sao cần đối tác chuyển đổi"
         },
         {
           "id": "p4_para6",
@@ -6381,7 +6381,7 @@
           "order": 6,
           "align": "left",
           "original_text": "Core Deployment Benefits",
-          "translated_text": ""
+          "translated_text": "Lợi ích triển khai cốt lõi"
         },
         {
           "id": "p4_para7",
@@ -6438,7 +6438,7 @@
           "order": 7,
           "align": "left",
           "original_text": "•Most sites already have camera infrastructure, but it is primarily used for post-incident review.",
-          "translated_text": ""
+          "translated_text": "• Hầu hết địa điểm đã có hạ tầng camera, nhưng chủ yếu dùng để xem lại sau sự cố."
         },
         {
           "id": "p4_para8",
@@ -6495,7 +6495,7 @@
           "order": 8,
           "align": "left",
           "original_text": "•Operational performance is difficult to validate due to manual, fragmented, and subjective reporting.",
-          "translated_text": ""
+          "translated_text": "• Hiệu suất vận hành khó xác thực do báo cáo thủ công, rời rạc và chủ quan."
         },
         {
           "id": "p4_para9",
@@ -6552,7 +6552,7 @@
           "order": 9,
           "align": "left",
           "original_text": "✓ No camera replacement required when streams are available",
-          "translated_text": ""
+          "translated_text": "✓ Không cần thay camera khi có luồng video"
         },
         {
           "id": "p4_para10",
@@ -6609,7 +6609,7 @@
           "order": 10,
           "align": "left",
           "original_text": "•CXVIEW unifies physical infrastructure, business data, and operational workflows into a single,",
-          "translated_text": ""
+          "translated_text": "• CXVIEW hợp nhất hạ tầng vật lý, dữ liệu kinh doanh và quy trình vận hành vào một"
         },
         {
           "id": "p4_para11",
@@ -6666,7 +6666,7 @@
           "order": 11,
           "align": "left",
           "original_text": "✓ On-premise processing supports latency, bandwidth control and data sovereignty",
-          "translated_text": ""
+          "translated_text": "✓ Xử lý tại chỗ: độ trễ thấp, tiết kiệm băng thông, chủ quyền dữ liệu"
         },
         {
           "id": "p4_para12",
@@ -6708,7 +6708,7 @@
           "order": 12,
           "align": "left",
           "original_text": "measurable intelligence layer.",
-          "translated_text": ""
+          "translated_text": "lớp trí tuệ đo lường được"
         },
         {
           "id": "p4_para13",
@@ -6765,7 +6765,7 @@
           "order": 13,
           "align": "left",
           "original_text": "✓ Automated reports reduce manual debate with employees, vendors and site teams",
-          "translated_text": ""
+          "translated_text": "✓ Báo cáo tự động giảm tranh luận với nhân viên, nhà cung cấp và đội ngũ tại địa điểm"
         },
         {
           "id": "p4_para14",
@@ -6822,7 +6822,7 @@
           "order": 14,
           "align": "left",
           "original_text": "•The value extends beyond hardware, delivering real-time alerts, automated evidence, actionable",
-          "translated_text": ""
+          "translated_text": "• Giá trị vượt ngoài phần cứng, mang lại cảnh báo thời gian thực, bằng chứng tự động, thông tin"
         },
         {
           "id": "p4_para15",
@@ -6879,7 +6879,7 @@
           "order": 15,
           "align": "left",
           "original_text": "✓ Management receives objective before/after performance data for every site",
-          "translated_text": ""
+          "translated_text": "✓ Ban quản lý có dữ liệu trước/sau khách quan cho từng địa điểm"
         },
         {
           "id": "p4_para16",
@@ -6921,7 +6921,7 @@
           "order": 16,
           "align": "left",
           "original_text": "dashboards, and clear ROI tracking.",
-          "translated_text": ""
+          "translated_text": "bảng điều khiển và theo dõi ROI rõ ràng"
         }
       ]
     }

@@ -69,7 +69,7 @@
                   "size": 33.997718811035156,
                   "color": 16777215,
                   "flags": 4,
-                  "is_bold": true,
+                  "is_bold": false,
                   "is_italic": false
                 }
               ]
@@ -111,7 +111,7 @@
                   "size": 33.997718811035156,
                   "color": 16777215,
                   "flags": 4,
-                  "is_bold": true,
+                  "is_bold": false,
                   "is_italic": false
                 }
               ]
@@ -637,7 +637,7 @@
                   "size": 11.999192237854004,
                   "color": 1252186,
                   "flags": 4,
-                  "is_bold": true,
+                  "is_bold": false,
                   "is_italic": false
                 }
               ]
@@ -2641,7 +2641,7 @@
                   "size": 11.999192237854004,
                   "color": 1252186,
                   "flags": 4,
-                  "is_bold": true,
+                  "is_bold": false,
                   "is_italic": false
                 }
               ]
@@ -2951,7 +2951,7 @@
                   "size": 10.999260902404785,
                   "color": 8214230,
                   "flags": 4,
-                  "is_bold": true,
+                  "is_bold": false,
                   "is_italic": false
                 }
               ]
@@ -2976,7 +2976,7 @@
                   "size": 10.999260902404785,
                   "color": 8214230,
                   "flags": 4,
-                  "is_bold": true,
+                  "is_bold": false,
                   "is_italic": false
                 }
               ]
@@ -3612,7 +3612,7 @@
                   "size": 10.999260902404785,
                   "color": 8214230,
                   "flags": 4,
-                  "is_bold": true,
+                  "is_bold": false,
                   "is_italic": false
                 }
               ]
@@ -3637,7 +3637,7 @@
                   "size": 10.999260902404785,
                   "color": 8214230,
                   "flags": 4,
-                  "is_bold": true,
+                  "is_bold": false,
                   "is_italic": false
                 }
               ]
@@ -4215,7 +4215,7 @@
                   "size": 10.999260902404785,
                   "color": 8214230,
                   "flags": 4,
-                  "is_bold": true,
+                  "is_bold": false,
                   "is_italic": false
                 }
               ]
@@ -4240,7 +4240,7 @@
                   "size": 10.999260902404785,
                   "color": 8214230,
                   "flags": 4,
-                  "is_bold": true,
+                  "is_bold": false,
                   "is_italic": false
                 }
               ]
@@ -4486,7 +4486,7 @@
                   "size": 11.999192237854004,
                   "color": 1252186,
                   "flags": 4,
-                  "is_bold": true,
+                  "is_bold": false,
                   "is_italic": false
                 }
               ]
@@ -5499,7 +5499,7 @@
                   "size": 11.999192237854004,
                   "color": 1252186,
                   "flags": 4,
-                  "is_bold": true,
+                  "is_bold": false,
                   "is_italic": false
                 }
               ]
