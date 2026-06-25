@@ -1,0 +1,39 @@
+{
+  "version": "v26_cxview_image_graphic_regions",
+  "note": "Manual approved image/graphic regions for CXVIEW deck. Used to prevent OCR/patch outside visual regions while preserving normal text-layer output.",
+  "regions": [
+    {
+      "page": 2,
+      "name": "pricing_table_tier_badges_graphic_cells",
+      "bbox": [
+        215.0,
+        185.0,
+        285.0,
+        365.0
+      ],
+      "reason": "Tier badges Basic/Silver/Gold are visual badge elements; patch only this narrow column."
+    },
+    {
+      "page": 4,
+      "name": "device_title_and_feature_buttons_graphic",
+      "bbox": [
+        318.0,
+        100.0,
+        790.0,
+        238.0
+      ],
+      "reason": "CXVIEW GPT Box product graphic and purple feature buttons."
+    },
+    {
+      "page": 5,
+      "name": "center_ai_vision_infrastructure_diagram",
+      "bbox": [
+        135.0,
+        190.0,
+        705.0,
+        335.0
+      ],
+      "reason": "Central diagram contains small embedded labels and screenshots."
+    }
+  ]
+}

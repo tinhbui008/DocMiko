@@ -1,0 +1,89 @@
+﻿page,priority,text,suggested_translation,bbox,confidence,inside_image_rect,crop
+1,high,Phan tich Video Al,,"[97.75, 255.05, 371.35, 281.08]",93.75,False,p01_001.png
+1,high,Thach thirc KH. Giai phap CXVIEW. Tac dong:,,"[54.83, 321.23, 342.55, 340.89]",88.12,False,p01_002.png
+1,high,van hanh,VẬN HÀNH,"[317.63, 341.72, 350.58, 363.6]",78.0,False,p01_003.png
+1,medium,Thanh lap nam,,"[420.09, 407.35, 483.78, 417.05]",85.0,False,p01_006.png
+2,medium,Linh hoat thanh,,"[450.55, 393.23, 517.02, 403.48]",92.0,False,p02_010.png
+2,medium,"camera, dam bao phan tich toan",,"[254.22, 414.83, 382.71, 423.97]",91.0,False,p02_012.png
+2,medium,"24 gid moi ngay, ngay moi",,"[283.29, 422.86, 396.55, 432.0]",82.67,False,p02_013.png
+2,medium,orn khi kich hoat,,"[720.83, 422.86, 786.46, 431.72]",85.25,False,p02_014.png
+3,medium,tuan tra,,"[616.98, 132.09, 643.29, 139.57]",93.5,False,p03_001.png
+3,medium,Nhan khau,Nhân khẩu,"[422.58, 240.92, 458.58, 248.68]",74.5,False,p03_008.png
+3,medium,Tuong tac,Tương tác,"[585.42, 242.03, 621.14, 248.68]",93.5,False,p03_009.png
+3,medium,Giam sat,,"[724.98, 242.03, 755.45, 248.68]",87.5,False,p03_010.png
+3,medium,khach hang,khách hàng,"[585.69, 248.68, 625.02, 256.71]",94.0,False,p03_011.png
+3,medium,Thoi gian,,"[724.71, 303.51, 757.38, 311.54]",71.5,False,p03_015.png
+3,medium,Iwu lai,,"[725.26, 310.71, 746.58, 318.18]",80.0,False,p03_019.png
+3,medium,VAN HANH,VẬN HÀNH,"[44.31, 312.92, 102.46, 326.22]",96.0,False,p03_020.png
+3,medium,Don ban,Đơn bán,"[252.55, 356.4, 281.08, 364.15]",95.5,False,p03_021.png
+4,medium,The new era of physical edge Al,Kỷ nguyên mới của AI biên vật lý,"[333.42, 138.74, 525.88, 152.86]",95.71,False,p04_003.png
+4,medium,trong 30 ngay va ROI trong 60 ngay,,"[47.91, 195.23, 235.11, 206.58]",93.25,False,p04_004.png
+4,medium,BANDWIDTH SAVINGS,TIẾT KIỆM BĂNG THÔNG,"[684.83, 218.22, 761.26, 224.86]",96.0,False,p04_005.png
+4,medium,CXVIEW mang lai tac,,"[47.91, 220.43, 120.46, 232.62]",94.25,False,p04_006.png
+4,medium,nhu cau van hanh,,"[177.51, 228.18, 238.71, 237.88]",93.5,False,p04_007.png
+4,medium,"Dao tao, tro",,"[673.75, 287.17, 739.38, 296.86]",93.0,False,p04_009.png
+4,medium,Dat lich,Đặt lịch,"[134.86, 351.14, 171.42, 359.72]",95.0,False,p04_011.png
+4,medium,giai phap tuy chinh,,"[387.69, 358.62, 455.54, 366.65]",92.0,False,p04_012.png
+4,medium,"hap may do"" theo",,"[375.51, 385.75, 455.82, 396.83]",90.75,False,p04_016.png
+4,medium,r6 rang loi ich kinh doanh,,"[344.77, 412.06, 464.68, 421.48]",90.67,False,p04_017.png
+4,medium,QUY TRINH,QUY TRÌNH,"[36.0, 451.38, 112.43, 463.85]",94.0,False,p04_020.png
+5,medium,NEN TANG CONG NGHE,,"[52.34, 76.15, 202.43, 90.0]",86.75,False,p05_001.png
+5,medium,ly chay tai,,"[42.37, 184.98, 85.85, 194.68]",93.0,False,p05_003.png
+5,medium,upto O5 cameras,tối đa 05 camera,"[339.51, 263.08, 371.63, 268.06]",84.0,False,p05_004.png
+5,medium,upto 15 cameras,tối đa 15 cam,"[339.51, 276.92, 371.63, 281.91]",88.67,False,p05_008.png
+5,medium,"upto 30, cavers",,"[339.51, 290.49, 369.97, 298.8]",76.67,False,p05_011.png
+5,medium,Authorized Personnel,,"[593.72, 310.98, 647.45, 316.25]",94.0,False,p05_013.png
+5,medium,Dashboard Statistical info monitoring,Giám sát thông tin thống kê,"[427.57, 313.75, 521.72, 320.12]",96.0,False,p05_014.png
+5,medium,Functional Units,Đơn vị chức năng,"[603.14, 317.35, 643.57, 322.89]",91.0,False,p05_016.png
+5,medium,"System GPT Box, CCTV","Hệ thống GPT Box, CCTV","[445.85, 321.51, 503.45, 327.6]",95.75,False,p05_017.png
+5,medium,"bang chtrng ty dong, thong tin",,"[286.62, 475.2, 402.37, 486.0]",78.67,False,p05_018.png
+5,medium,khach quan cho,,"[614.22, 477.14, 678.18, 486.83]",91.67,False,p05_019.png
+1,low,gian,,"[223.2, 349.2, 239.26, 357.51]",92.0,False,p01_004.png
+1,low,THIEU CXVIEW,,"[443.63, 378.0, 513.69, 388.8]",90.0,False,p01_005.png
+2,low,thoi,,"[480.18, 155.08, 499.85, 163.94]",68.0,False,p02_001.png
+2,low,24 thang (USD),24 tháng (USD),"[628.89, 157.85, 695.35, 173.63]",95.0,False,p02_002.png
+2,low,36 thang (USD),36 tháng (USD),"[719.72, 157.85, 786.18, 173.63]",94.0,False,p02_003.png
+2,low,Cap,Cấp,"[231.51, 160.06, 248.68, 171.14]",66.0,False,p02_004.png
+2,low,Basic,Cơ bản,"[233.72, 196.06, 263.35, 205.75]",96.0,False,p02_005.png
+2,low,Basic,Cơ bản,"[233.72, 231.78, 263.35, 241.48]",94.0,False,p02_006.png
+2,low,Silver,Bạc,"[233.45, 269.72, 263.63, 279.69]",96.0,False,p02_007.png
+2,low,Silver,Bạc,"[233.45, 306.83, 263.63, 317.08]",72.0,False,p02_008.png
+2,low,Gold,Vàng,"[233.45, 345.88, 260.03, 355.85]",96.0,False,p02_009.png
+2,low,oan,,"[453.32, 402.65, 469.38, 408.74]",95.0,False,p02_011.png
+2,low,uan.,,"[47.91, 430.89, 65.35, 438.37]",64.0,False,p02_015.png
+3,low,Bao,,"[588.18, 133.2, 601.75, 139.57]",94.0,False,p03_002.png
+3,low,Al CAMERA,AI CAMERA,"[44.31, 161.17, 107.45, 170.58]",95.0,False,p03_003.png
+3,low,AN NINH,,"[44.31, 171.97, 90.28, 181.11]",95.5,False,p03_004.png
+3,low,Leo,,"[260.03, 174.18, 273.05, 180.28]",93.0,False,p03_005.png
+3,low,xam,xâm,"[424.8, 179.72, 440.31, 185.82]",73.0,False,p03_006.png
+3,low,nhap,nhập,"[425.35, 186.37, 442.52, 194.12]",92.0,False,p03_007.png
+3,low,hoc,,"[422.58, 248.95, 435.32, 256.43]",96.0,False,p03_012.png
+3,low,tram,trạm,"[724.71, 248.95, 740.77, 256.43]",96.0,False,p03_013.png
+3,low,Ban 46,,"[252.55, 297.69, 276.92, 305.45]",79.5,False,p03_014.png
+3,low,Al CAMERA,AI CAMERA,"[44.31, 304.06, 107.72, 313.48]",95.5,False,p03_016.png
+3,low,trinh,,"[279.14, 305.72, 295.2, 312.37]",91.0,False,p03_017.png
+3,low,Iwu,,"[439.75, 308.49, 451.11, 314.86]",57.0,False,p03_018.png
+3,low,An toan xe,An toàn xe,"[724.71, 418.43, 761.26, 427.29]",92.67,False,p03_022.png
+3,low,nang,nâng,"[725.26, 426.46, 742.15, 433.11]",93.0,False,p03_023.png
+3,low,thuong,,"[422.31, 429.78, 448.06, 437.82]",91.0,False,p03_024.png
+3,low,Al CAMERA,AI CAMERA,"[45.69, 462.46, 108.83, 471.88]",95.0,False,p03_025.png
+3,low,AN TOAN,AN TOÀN,"[45.69, 471.32, 95.82, 482.68]",90.0,False,p03_026.png
+3,low,Danh,Đánh,"[422.03, 477.97, 440.31, 484.34]",80.0,False,p03_027.png
+3,low,nhau,,"[422.58, 485.17, 439.48, 491.26]",92.0,False,p03_028.png
+4,low,avy,,"[51.78, 78.09, 78.37, 88.89]",47.0,False,p04_001.png
+4,low,CXVIEW GPT BOX,Hộp CXVIEW GPT,"[330.65, 115.2, 528.92, 132.65]",94.0,False,p04_002.png
+4,low,"ban,",Bán,"[93.88, 237.05, 109.11, 244.8]",96.0,False,p04_008.png
+4,low,Kiam,,"[493.75, 320.68, 512.03, 333.42]",89.0,False,p04_010.png
+4,low,demo,,"[135.14, 360.83, 162.28, 369.14]",96.0,False,p04_013.png
+4,low,OGG,,"[773.72, 371.08, 800.03, 379.66]",47.0,False,p04_014.png
+4,low,Giai,,"[350.31, 385.48, 367.75, 393.51]",91.0,False,p04_015.png
+4,low,Out+1,,"[643.29, 434.77, 657.97, 443.91]",93.0,False,p04_018.png
+4,low,Inst,,"[613.38, 446.68, 625.02, 453.88]",55.0,False,p04_019.png
+5,low,CXVIEW cung,,"[42.09, 140.95, 101.91, 150.65]",91.0,False,p05_002.png
+5,low,Basic,Cơ bản,"[314.58, 263.35, 328.71, 268.34]",82.0,False,p05_005.png
+5,low,GROUP,NHÓM,"[163.38, 264.74, 182.77, 269.72]",95.0,False,p05_006.png
+5,low,siver,,"[314.31, 276.92, 328.71, 281.91]",46.0,False,p05_007.png
+5,low,GROUP,NHÓM,"[163.38, 289.66, 183.05, 294.92]",88.0,False,p05_009.png
+5,low,Gold,Vàng,"[315.14, 290.49, 327.88, 295.75]",92.0,False,p05_010.png
+5,low,Tailored,Tùy chỉnh,"[310.98, 304.06, 331.75, 309.32]",96.0,False,p05_012.png
+5,low,GROUP,NHÓM,"[163.11, 314.86, 182.77, 320.12]",91.0,False,p05_015.png

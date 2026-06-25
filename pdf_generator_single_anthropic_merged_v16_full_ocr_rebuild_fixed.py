@@ -6119,9 +6119,13 @@ def _cvr_render_region_b64(page, region, dpi=220):
 
 def _cvr_call_claude(b64_image, region, api_key, base_url, model,
                      anthropic_version="2023-06-01", timeout=60):
-    prompt = ("Extract all visible text from this PDF region. "
-              "Return ONLY a JSON array: [{"text":"...","x0":0.0,"y0":0.0,"x1":1.0,"y1":1.0}] "
-              "where coords are fractions 0.0-1.0 of this image. Include button/badge text. Skip QR codes.")
+    prompt = (
+        "Extract all visible text from this PDF region. "
+        "Return ONLY a JSON array with this schema: "
+        '[{"text":"...","x0":0.0,"y0":0.0,"x1":1.0,"y1":1.0}]. '
+        "Coordinates must be fractions 0.0-1.0 of this image. "
+        "Include button/badge text. Skip QR codes. No markdown."
+    )
     body = {"model": model, "max_tokens": 2048,
             "messages": [{"role": "user", "content": [
                 {"type": "image", "source": {"type": "base64", "media_type": "image/png", "data": b64_image}},
@@ -6345,7 +6349,7 @@ def build_arg_parser_v6() -> argparse.ArgumentParser:
                    help="DPI for region rendering in --cv-region-patch")
     p.add_argument("--cv-debug", action="store_true",
                    help="Draw green outlines around processed image regions")
-        p.add_argument("--v263-debug-regions", action="store_true",
+    p.add_argument("--v263-debug-regions", action="store_true",
                    help="Draw blue outlines on V26.3 image regions for debugging")
 
     # Full OCR rebuild: ignores PDF text layer and reconstructs pages from OCR.

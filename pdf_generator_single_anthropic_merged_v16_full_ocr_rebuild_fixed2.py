@@ -5562,6 +5562,44 @@ def _claude_vision_call(b64_image, api_key, base_url, model,
     raise ValueError(f"No text in Claude response: {result}")
 
 
+
+def _estimate_font_size_v17(
+    height_pt: float,
+    text: str,
+    width_pt: float,
+    line_height_ratio: float = 1.25,
+) -> float:
+    """Estimate a readable font size for OCR / Claude Vision region text.
+
+    The CV region patch path can produce regions that do not have a source
+    TextBlock, so it needs a standalone font-size estimator.  This mirrors the
+    earlier v17 OCR helper that was accidentally not merged into this single file.
+    """
+    try:
+        height_pt = float(height_pt or 0)
+        width_pt = float(width_pt or 0)
+    except Exception:
+        return 8.0
+
+    if height_pt <= 0 or width_pt <= 0:
+        return 8.0
+
+    s = re.sub(r"\s+", " ", str(text or "")).strip()
+    if not s:
+        return max(4.5, min(72.0, height_pt / line_height_ratio))
+
+    # Initial guess: single line. Typical sans char width ~= 0.55 * fontsize.
+    char_width_ratio = 0.55
+    size_guess = max(4.5, height_pt / line_height_ratio)
+
+    for _ in range(3):
+        chars_per_line = max(1.0, width_pt / max(1.0, size_guess * char_width_ratio))
+        # Use ceiling-like behavior without importing math; round underestimates wrapping for short labels.
+        estimated_lines = max(1, int((len(s) + chars_per_line - 1) // chars_per_line))
+        size_guess = max(4.5, (height_pt / estimated_lines) / line_height_ratio)
+
+    return max(4.5, min(72.0, size_guess))
+
 def _claude_vision_parse_blocks(raw_response, page, page_index, min_chars=2):
     import re as _re, json as _json
     text = raw_response.strip()
@@ -6119,9 +6157,13 @@ def _cvr_render_region_b64(page, region, dpi=220):
 
 def _cvr_call_claude(b64_image, region, api_key, base_url, model,
                      anthropic_version="2023-06-01", timeout=60):
-    prompt = ("Extract all visible text from this PDF region. "
-              "Return ONLY a JSON array: [{"text":"...","x0":0.0,"y0":0.0,"x1":1.0,"y1":1.0}] "
-              "where coords are fractions 0.0-1.0 of this image. Include button/badge text. Skip QR codes.")
+    prompt = (
+        "Extract all visible text from this PDF region. "
+        "Return ONLY a JSON array with this schema: "
+        '[{"text":"...","x0":0.0,"y0":0.0,"x1":1.0,"y1":1.0}]. '
+        "Coordinates must be fractions 0.0-1.0 of this image. "
+        "Include button/badge text. Skip QR codes. No markdown."
+    )
     body = {"model": model, "max_tokens": 2048,
             "messages": [{"role": "user", "content": [
                 {"type": "image", "source": {"type": "base64", "media_type": "image/png", "data": b64_image}},
@@ -6345,7 +6387,7 @@ def build_arg_parser_v6() -> argparse.ArgumentParser:
                    help="DPI for region rendering in --cv-region-patch")
     p.add_argument("--cv-debug", action="store_true",
                    help="Draw green outlines around processed image regions")
-        p.add_argument("--v263-debug-regions", action="store_true",
+    p.add_argument("--v263-debug-regions", action="store_true",
                    help="Draw blue outlines on V26.3 image regions for debugging")
 
     # Full OCR rebuild: ignores PDF text layer and reconstructs pages from OCR.

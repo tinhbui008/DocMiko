@@ -1,0 +1,65 @@
+{
+  "description": "CXVIEW PDF patch map for V26.3 - patches text inside image/graphic regions",
+  "patches": [
+    {
+      "page": 2, "bbox": [209.0, 188.7, 281.8, 212.4],
+      "translation": "+ Basic", "role": "label",
+      "fill": [75, 184, 208], "color": [255, 255, 255],
+      "shape": "pill", "font_size": 8.5, "align": "center", "enabled": true
+    },
+    {
+      "page": 2, "bbox": [209.0, 224.6, 281.8, 248.3],
+      "translation": "+ Basic +", "role": "label",
+      "fill": [140, 200, 220], "color": [255, 255, 255],
+      "shape": "pill", "font_size": 8.5, "align": "center", "enabled": true
+    },
+    {
+      "page": 2, "bbox": [209.0, 262.9, 281.8, 286.6],
+      "translation": "+ Silver", "role": "label",
+      "fill": [190, 190, 190], "color": [255, 255, 255],
+      "shape": "pill", "font_size": 8.5, "align": "center", "enabled": true
+    },
+    {
+      "page": 2, "bbox": [209.0, 300.1, 281.8, 323.8],
+      "translation": "+ Silver +", "role": "label",
+      "fill": [170, 170, 170], "color": [255, 255, 255],
+      "shape": "pill", "font_size": 8.5, "align": "center", "enabled": true
+    },
+    {
+      "page": 2, "bbox": [209.0, 339.1, 281.8, 362.8],
+      "translation": "+ Gold", "role": "label",
+      "fill": [200, 165, 80], "color": [255, 255, 255],
+      "shape": "pill", "font_size": 8.5, "align": "center", "enabled": true
+    },
+    {
+      "page": 4, "bbox": [163.7, 442.2, 278.3, 460.0],
+      "translation": "Thấu hiểu chiến lược",
+      "role": "label", "fill": [91, 77, 170], "color": [255, 255, 255],
+      "shape": "pill", "font_size": 8.0, "align": "center", "enabled": true
+    },
+    {
+      "page": 4, "bbox": [342.8, 353.5, 466.4, 371.9],
+      "translation": "Kiến trúc tùy chỉnh",
+      "role": "label", "fill": [194, 111, 197], "color": [255, 255, 255],
+      "shape": "pill", "font_size": 8.0, "align": "center", "enabled": true
+    },
+    {
+      "page": 4, "bbox": [488.9, 282.4, 601.5, 299.0],
+      "translation": "Pilot & Xác thực",
+      "role": "label", "fill": [210, 135, 63], "color": [255, 255, 255],
+      "shape": "pill", "font_size": 8.0, "align": "center", "enabled": true
+    },
+    {
+      "page": 4, "bbox": [662.8, 249.3, 767.4, 267.1],
+      "translation": "Mở rộng & Duy trì",
+      "role": "label", "fill": [30, 30, 30], "color": [255, 255, 255],
+      "shape": "pill", "font_size": 8.0, "align": "center", "enabled": true
+    },
+    {
+      "page": 5, "bbox": [459.6, 381.7, 595.5, 405.5],
+      "translation": "Lợi ích triển khai cốt lõi",
+      "role": "label", "fill": [47, 85, 151], "color": [255, 255, 255],
+      "shape": "rect", "font_size": 9.0, "align": "center", "enabled": true
+    }
+  ]
+}

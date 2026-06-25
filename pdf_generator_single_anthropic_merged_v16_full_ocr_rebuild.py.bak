@@ -226,7 +226,7 @@ def protection_instruction_v7() -> str:
         return (
             "- Preserve product/technical names when they are placeholders or common product terms: "
             "CXVIEW, CXVIEW GPT Box, GPT Box, AI Video Analytics, CCTV, POS, API, RTSP, ONVIF, VMS, ROI, POC, PPE, USD.\\n"
-            "- Use the glossary exactly. For this domain, translate camera as 'camera' not 'mÃ¡y áº£nh'; site as 'Ä‘á»‹a Ä‘iá»ƒm' not 'trang web'; billing as 'thanh toÃ¡n' not 'hÃ³a Ä‘Æ¡n'; Edge Intelligence as 'trÃ­ tuá»‡ biÃªn'."
+            "- Use the glossary exactly. For this domain, translate camera as 'camera' not 'máy ảnh'; site as 'địa điểm' not 'trang web'; billing as 'thanh toán' not 'hóa đơn'; Edge Intelligence as 'trí tuệ biên'."
         )
     return (
         "- Translate all normal human-readable text into the target language, including technical/business phrases.\\n"
@@ -306,15 +306,15 @@ Rules:
 - Preserve placeholders exactly, including non-breaking placeholders like <PH_0>.
 {protection_instruction_v7()}
 - Avoid word-by-word literal Vietnamese. Prefer natural B2B/technical Vietnamese suitable for a sales deck.
-- For Detection labels, use compact patterns like 'PhÃ¡t hiá»‡n ...', 'Nháº­n dáº¡ng ...', 'GiÃ¡m sÃ¡t ...', 'Äáº¿m ...'.
-- Never output awkward mixed phrases like 'leo climbing', 'Äáº¥u tranh' for fighting, 'váº­t thá»ƒ khÃ´ng cÃ³ ngÆ°á»i', 'Linhh hoáº¡t hÃ³a Ä‘Æ¡n', or 'CXVIEW GPT Há»™p'.
+- For Detection labels, use compact patterns like 'Phát hiện ...', 'Nhận dạng ...', 'Giám sát ...', 'Đếm ...'.
+- Never output awkward mixed phrases like 'leo climbing', 'Đấu tranh' for fighting, 'vật thể không có người', 'Linhh hoạt hóa đơn', or 'CXVIEW GPT Hộp'.
 - For role=title: concise marketing headline, no explanatory wording.
 - For role=cta: concise call-to-action.
 - For role=label: very short Vietnamese label, preferably 1-4 words, no full sentence.
 - For small boxes where max_chars <= 30: use the shortest natural equivalent; keep English term if Vietnamese would be too long.
 - For role=body: use natural Vietnamese suitable for a formal flyer/document, but avoid unnecessary length.
 - Do not translate hidden/logo/decorative text; those should not appear here.
-- Avoid awkward literal translations such as translating product word "Box" into "Há»™p" when it is part of the product name.
+- Avoid awkward literal translations such as translating product word "Box" into "Hộp" when it is part of the product name.
 {glossary_text}
 
 Input JSON:
@@ -377,7 +377,7 @@ Rules:
 - Preserve the same IDs.
 - Preserve placeholders exactly.
 {protection_instruction_v7()}
-- Fix literal/wrong phrases: 'leo climbing', 'Äáº¥u tranh', 'váº­t thá»ƒ khÃ´ng cÃ³ ngÆ°á»i', 'thao tÃºng camera', 'Linhh hoáº¡t hÃ³a Ä‘Æ¡n', 'GPT Há»™p'.
+- Fix literal/wrong phrases: 'leo climbing', 'Đấu tranh', 'vật thể không có người', 'thao túng camera', 'Linhh hoạt hóa đơn', 'GPT Hộp'.
 - Keep label translations compact to fit the given max_chars/max_lines.
 {glossary_text}
 
@@ -613,8 +613,8 @@ def normalize_text(text: str) -> str:
 
 def comparable_text(text: str) -> str:
     text = normalize_text(text)
-    text = text.replace("â€œ", '"').replace("â€", '"').replace("â€˜", "'").replace("â€™", "'")
-    text = text.replace("â€“", "-").replace("â€”", "-")
+    text = text.replace("“", '"').replace("”", '"').replace("‘", "'").replace("’", "'")
+    text = text.replace("–", "-").replace("—", "-")
     text = re.sub(r"\s+", " ", text)
     return text.strip()
 
@@ -638,7 +638,7 @@ def compact_text(text: str) -> str:
 
 
 def is_probably_page_number(text: str) -> bool:
-    return bool(re.fullmatch(r"[-â€“â€”]?\s*\d{1,4}\s*[-â€“â€”]?", text.strip()))
+    return bool(re.fullmatch(r"[-–—]?\s*\d{1,4}\s*[-–—]?", text.strip()))
 
 
 def is_logo_or_decorative_text(text: str) -> bool:
@@ -935,7 +935,7 @@ def classify_block_role(block: TextBlock, page: PageIR) -> str:
     if block.font_size >= 18 or (block.is_bold and block.font_size >= 15):
         return "title"
 
-    if re.match(r"^\s*(fig\.|figure|table|chart|áº£nh|hÃ¬nh|báº£ng)\s+\d+", text, flags=re.I):
+    if re.match(r"^\s*(fig\.|figure|table|chart|ảnh|hình|bảng)\s+\d+", text, flags=re.I):
         return "caption"
 
     # CTA / QR side text, still translatable.
@@ -968,7 +968,7 @@ def should_merge_blocks(prev: TextBlock, curr: TextBlock, page: PageIR) -> bool:
     if not prev_text or not curr_text:
         return False
 
-    if re.match(r"^(\d+\.|[â€¢\-*])\s+", curr_text):
+    if re.match(r"^(\d+\.|[•\-*])\s+", curr_text):
         return False
 
     px0, py0, px1, py1 = prev.bbox
@@ -979,7 +979,7 @@ def should_merge_blocks(prev: TextBlock, curr: TextBlock, page: PageIR) -> bool:
     vertical_gap = cy0 - py1
     close_gap = 0 <= vertical_gap <= max(prev.font_size, curr.font_size) * 1.35
     similar_size = abs(prev.font_size - curr.font_size) <= 1.0
-    prev_ends_sentence = bool(re.search(r"[.!?ã€‚ï¼ï¼Ÿ:]$", prev_text))
+    prev_ends_sentence = bool(re.search(r"[.!?。！？:]$", prev_text))
 
     return same_left and similar_width and close_gap and similar_size and not prev_ends_sentence
 
@@ -1113,12 +1113,12 @@ def restore_placeholders(text: str, mapping: Dict[str, str]) -> str:
 BUILTIN_GLOSSARY_VI: Dict[str, str] = {
     "camera": "camera",
     "cameras": "camera",
-    "site": "Ä‘á»‹a Ä‘iá»ƒm",
-    "sites": "Ä‘á»‹a Ä‘iá»ƒm",
-    "edge intelligence": "trÃ­ tuá»‡ biÃªn",
-    "edge device": "thiáº¿t bá»‹ biÃªn",
-    "on premise": "táº¡i chá»—",
-    "on-premise": "táº¡i chá»—",
+    "site": "địa điểm",
+    "sites": "địa điểm",
+    "edge intelligence": "trí tuệ biên",
+    "edge device": "thiết bị biên",
+    "on premise": "tại chỗ",
+    "on-premise": "tại chỗ",
     "AI video analytics": "AI Video Analytics",
     "CXVIEW GPT Box": "CXVIEW GPT Box",
     "CCTV": "CCTV",
@@ -1131,129 +1131,129 @@ BUILTIN_GLOSSARY_VI: Dict[str, str] = {
     "POC": "POC",
     "PPE": "PPE",
     "USD": "USD",
-    "billing flexibility": "Linh hoáº¡t thanh toÃ¡n",
-    "concurrent AI stream ratio": "Tá»· lá»‡ luá»“ng AI Ä‘á»“ng thá»i",
+    "billing flexibility": "Linh hoạt thanh toán",
+    "concurrent AI stream ratio": "Tỷ lệ luồng AI đồng thời",
 }
 
 # Normalized exact phrase memory for small labels and stable UI/table text.
 # This dramatically improves slide/flyer PDFs where each label has a tiny bbox.
 EXACT_TRANSLATION_MEMORY_VI: Dict[str, str] = {
     # Page 1 / overview
-    "client challenges. cxview solutions. business impacts.": "ThÃ¡ch thá»©c khÃ¡ch hÃ ng. Giáº£i phÃ¡p CXVIEW. TÃ¡c Ä‘á»™ng kinh doanh.",
-    "from conservative cctv infrastructure to real-time intelligence, operational automation and business-performance reporting.": "Tá»« háº¡ táº§ng CCTV truyá»n thá»‘ng Ä‘áº¿n trÃ­ tuá»‡ thá»i gian thá»±c, tá»± Ä‘á»™ng hÃ³a váº­n hÃ nh vÃ  bÃ¡o cÃ¡o hiá»‡u quáº£ kinh doanh.",
-    "about cxview": "GIá»šI THIá»†U CXVIEW",
+    "client challenges. cxview solutions. business impacts.": "Thách thức khách hàng. Giải pháp CXVIEW. Tác động kinh doanh.",
+    "from conservative cctv infrastructure to real-time intelligence, operational automation and business-performance reporting.": "Từ hạ tầng CCTV truyền thống đến trí tuệ thời gian thực, tự động hóa vận hành và báo cáo hiệu quả kinh doanh.",
+    "about cxview": "GIỚI THIỆU CXVIEW",
     "cxview gpt box & ai video analytics": "CXVIEW GPT Box & AI Video Analytics",
     "cxview gpt box": "CXVIEW GPT Box",
     "& ai video analytics": "& AI Video Analytics",
 
     # Page 2 / pricing table
-    "package": "GÃ³i",
-    "tier": "Cáº¥p",
+    "package": "Gói",
+    "tier": "Cấp",
     "cameras": "Camera",
-    "concurrent ai streams active on ai models existed": "Luá»“ng AI Ä‘á»“ng thá»i\ntrÃªn mÃ´ hÃ¬nh AI hiá»‡n cÃ³",
-    "concurrent ai streams": "Luá»“ng AI Ä‘á»“ng thá»i",
-    "active on ai models existed": "trÃªn mÃ´ hÃ¬nh AI hiá»‡n cÃ³",
-    "monthly (usd)": "HÃ ng thÃ¡ng (USD)",
-    "24-month (usd)": "24 thÃ¡ng (USD)",
-    "36-month (usd)": "36 thÃ¡ng (USD)",
-    "concurrent ai stream ratio": "Tá»· lá»‡ luá»“ng AI Ä‘á»“ng thá»i",
-    "billing flexibility": "Linh hoáº¡t thanh toÃ¡n",
+    "concurrent ai streams active on ai models existed": "Luồng AI đồng thời\ntrên mô hình AI hiện có",
+    "concurrent ai streams": "Luồng AI đồng thời",
+    "active on ai models existed": "trên mô hình AI hiện có",
+    "monthly (usd)": "Hàng tháng (USD)",
+    "24-month (usd)": "24 tháng (USD)",
+    "36-month (usd)": "36 tháng (USD)",
+    "concurrent ai stream ratio": "Tỷ lệ luồng AI đồng thời",
+    "billing flexibility": "Linh hoạt thanh toán",
     "cxview smart ai video analytics solution": "CXVIEW SMART AI VIDEO ANALYTICS SOLUTION",
 
     # Page 3 / solution labels
-    "our solutions": "GIáº¢I PHÃP Cá»¦A CHÃšNG TÃ”I",
-    "vehicle plate recognition": "Nháº­n dáº¡ng biá»ƒn sá»‘ xe",
-    "fence and wall climbing detection": "PhÃ¡t hiá»‡n leo rÃ o/tÆ°á»ng",
-    "intrusion detection": "PhÃ¡t hiá»‡n xÃ¢m nháº­p",
-    "camera tampering detection": "PhÃ¡t hiá»‡n can thiá»‡p camera",
-    "ppe and uniform detection": "PhÃ¡t hiá»‡n PPE & Ä‘á»“ng phá»¥c",
-    "forklift and vehicle safety detection": "An toÃ n xe nÃ¢ng & phÆ°Æ¡ng tiá»‡n",
-    "falls and slips detection": "PhÃ¡t hiá»‡n tÃ© ngÃ£/trÆ°á»£t",
-    "fighting detection": "PhÃ¡t hiá»‡n Ä‘Ã¡nh nhau",
-    "unusual crowd detection": "PhÃ¡t hiá»‡n Ä‘Ã¡m Ä‘Ã´ng báº¥t thÆ°á»ng",
-    "smoke and fire detection": "PhÃ¡t hiá»‡n khÃ³i/lá»­a",
+    "our solutions": "GIẢI PHÁP CỦA CHÚNG TÔI",
+    "vehicle plate recognition": "Nhận dạng biển số xe",
+    "fence and wall climbing detection": "Phát hiện leo rào/tường",
+    "intrusion detection": "Phát hiện xâm nhập",
+    "camera tampering detection": "Phát hiện can thiệp camera",
+    "ppe and uniform detection": "Phát hiện PPE & đồng phục",
+    "forklift and vehicle safety detection": "An toàn xe nâng & phương tiện",
+    "falls and slips detection": "Phát hiện té ngã/trượt",
+    "fighting detection": "Phát hiện đánh nhau",
+    "unusual crowd detection": "Phát hiện đám đông bất thường",
+    "smoke and fire detection": "Phát hiện khói/lửa",
     "ai camera in security": "AI CAMERA\nAN NINH",
-    "ai camera in operation": "AI CAMERA\nVáº¬N HÃ€NH",
-    "ai camera in safety": "AI CAMERA\nAN TOÃ€N",
-    "smart workstation monitoring": "GiÃ¡m sÃ¡t tráº¡m lÃ m viá»‡c",
-    "automated product counting": "Äáº¿m sáº£n pháº©m tá»± Ä‘á»™ng",
-    "product quality inspection": "Kiá»ƒm tra cháº¥t lÆ°á»£ng sáº£n pháº©m",
-    "heat maps & route maps analysis": "PhÃ¢n tÃ­ch báº£n Ä‘á»“ nhiá»‡t/lá»™ trÃ¬nh",
-    "heat maps and route maps analysis": "PhÃ¢n tÃ­ch báº£n Ä‘á»“ nhiá»‡t/lá»™ trÃ¬nh",
-    "dwell time report": "BÃ¡o cÃ¡o thá»i gian lÆ°u láº¡i",
-    "traffic counting": "Äáº¿m lÆ°u lÆ°á»£ng",
-    "customer demographic analysis": "PhÃ¢n tÃ­ch nhÃ¢n kháº©u há»c",
-    "customer engagement detection": "PhÃ¡t hiá»‡n tÆ°Æ¡ng tÃ¡c khÃ¡ch hÃ ng",
-    "table cleaning detection": "PhÃ¡t hiá»‡n dá»n bÃ n",
-    "patrol automatic report": "BÃ¡o cÃ¡o tuáº§n tra tá»± Ä‘á»™ng",
-    "unattended object detection": "PhÃ¡t hiá»‡n váº­t thá»ƒ bá» quÃªn",
+    "ai camera in operation": "AI CAMERA\nVẬN HÀNH",
+    "ai camera in safety": "AI CAMERA\nAN TOÀN",
+    "smart workstation monitoring": "Giám sát trạm làm việc",
+    "automated product counting": "Đếm sản phẩm tự động",
+    "product quality inspection": "Kiểm tra chất lượng sản phẩm",
+    "heat maps & route maps analysis": "Phân tích bản đồ nhiệt/lộ trình",
+    "heat maps and route maps analysis": "Phân tích bản đồ nhiệt/lộ trình",
+    "dwell time report": "Báo cáo thời gian lưu lại",
+    "traffic counting": "Đếm lưu lượng",
+    "customer demographic analysis": "Phân tích nhân khẩu học",
+    "customer engagement detection": "Phát hiện tương tác khách hàng",
+    "table cleaning detection": "Phát hiện dọn bàn",
+    "patrol automatic report": "Báo cáo tuần tra tự động",
+    "unattended object detection": "Phát hiện vật thể bỏ quên",
 
     # Page 4 / process
-    "our process": "QUY TRÃŒNH",
-    "strategic understanding": "Tháº¥u hiá»ƒu chiáº¿n lÆ°á»£c",
-    "tailored solution architecture": "Kiáº¿n trÃºc giáº£i phÃ¡p tÃ¹y chá»‰nh",
-    "pilot (poc) & validation": "Pilot (POC) & xÃ¡c thá»±c",
-    "scale & sustain": "Má»Ÿ rá»™ng & duy trÃ¬",
-    "book your live demo": "Äáº·t lá»‹ch demo trá»±c tiáº¿p",
-    "near-zero latency": "Äá»™ trá»… gáº§n báº±ng 0",
-    "data sovereignty": "Chá»§ quyá»n dá»¯ liá»‡u",
-    "cost efficiency": "Tá»‘i Æ°u chi phÃ­",
-    "bandwidth savings": "Tiáº¿t kiá»‡m bÄƒng thÃ´ng",
+    "our process": "QUY TRÌNH",
+    "strategic understanding": "Thấu hiểu chiến lược",
+    "tailored solution architecture": "Kiến trúc giải pháp tùy chỉnh",
+    "pilot (poc) & validation": "Pilot (POC) & xác thực",
+    "scale & sustain": "Mở rộng & duy trì",
+    "book your live demo": "Đặt lịch demo trực tiếp",
+    "near-zero latency": "Độ trễ gần bằng 0",
+    "data sovereignty": "Chủ quyền dữ liệu",
+    "cost efficiency": "Tối ưu chi phí",
+    "bandwidth savings": "Tiết kiệm băng thông",
 
     # Page 5 / platform
-    "platform & technology": "Ná»€N Táº¢NG & CÃ”NG NGHá»†",
-    "how cxview delivers the transformation": "CXVIEW triá»ƒn khai chuyá»ƒn Ä‘á»•i nhÆ° tháº¿ nÃ o",
-    "why a transformation partner is essential": "VÃ¬ sao cáº§n má»™t Ä‘á»‘i tÃ¡c chuyá»ƒn Ä‘á»•i",
-    "core deployment benefits": "Lá»£i Ã­ch triá»ƒn khai cá»‘t lÃµi",
-    "customer on - premise ai vision infrastructure": "Háº¡ táº§ng AI Vision táº¡i chá»— cá»§a khÃ¡ch hÃ ng",
-    "customer on-premise ai vision infrastructure": "Háº¡ táº§ng AI Vision táº¡i chá»— cá»§a khÃ¡ch hÃ ng",
-    "no camera replacement required when streams are available": "KhÃ´ng cáº§n thay camera khi cÃ³ sáºµn luá»“ng video",
-    "on-premise processing supports latency, bandwidth control and data sovereignty": "Xá»­ lÃ½ táº¡i chá»— há»— trá»£ Ä‘á»™ trá»… tháº¥p, kiá»ƒm soÃ¡t bÄƒng thÃ´ng vÃ  chá»§ quyá»n dá»¯ liá»‡u",
-    "automated reports reduce manual debate with employees, vendors and site teams": "BÃ¡o cÃ¡o tá»± Ä‘á»™ng giáº£m tranh luáº­n thá»§ cÃ´ng vá»›i nhÃ¢n viÃªn, nhÃ  cung cáº¥p vÃ  Ä‘á»™i ngÅ© táº¡i Ä‘á»‹a Ä‘iá»ƒm",
-    "management receives objective before/after performance data for every site": "Ban quáº£n lÃ½ nháº­n dá»¯ liá»‡u hiá»‡u suáº¥t trÆ°á»›c/sau khÃ¡ch quan cho tá»«ng Ä‘á»‹a Ä‘iá»ƒm",
+    "platform & technology": "NỀN TẢNG & CÔNG NGHỆ",
+    "how cxview delivers the transformation": "CXVIEW triển khai chuyển đổi như thế nào",
+    "why a transformation partner is essential": "Vì sao cần một đối tác chuyển đổi",
+    "core deployment benefits": "Lợi ích triển khai cốt lõi",
+    "customer on - premise ai vision infrastructure": "Hạ tầng AI Vision tại chỗ của khách hàng",
+    "customer on-premise ai vision infrastructure": "Hạ tầng AI Vision tại chỗ của khách hàng",
+    "no camera replacement required when streams are available": "Không cần thay camera khi có sẵn luồng video",
+    "on-premise processing supports latency, bandwidth control and data sovereignty": "Xử lý tại chỗ hỗ trợ độ trễ thấp, kiểm soát băng thông và chủ quyền dữ liệu",
+    "automated reports reduce manual debate with employees, vendors and site teams": "Báo cáo tự động giảm tranh luận thủ công với nhân viên, nhà cung cấp và đội ngũ tại địa điểm",
+    "management receives objective before/after performance data for every site": "Ban quản lý nhận dữ liệu hiệu suất trước/sau khách quan cho từng địa điểm",
 }
 
 BAD_PHRASE_REPLACEMENTS_VI: List[Tuple[str, str]] = [
-    ("Linhh hoáº¡t hÃ³a Ä‘Æ¡n", "Linh hoáº¡t thanh toÃ¡n"),
-    ("Linhh hoáº¡t Thanh toÃ¡n", "Linh hoáº¡t thanh toÃ¡n"),
-    ("Linh hoáº¡t hÃ³a Ä‘Æ¡n", "Linh hoáº¡t thanh toÃ¡n"),
-    ("hÃ³a Ä‘Æ¡n hÃ ng thÃ¡ng", "thanh toÃ¡n hÃ ng thÃ¡ng"),
-    ("chu ká»³ hÃ³a Ä‘Æ¡n", "chu ká»³ thanh toÃ¡n"),
-    ("máº«u AI", "mÃ´ hÃ¬nh AI"),
-    ("cÃ¡c máº«u AI", "cÃ¡c mÃ´ hÃ¬nh AI"),
-    ("mÃ¡y áº£nh", "camera"),
-    ("MÃ¡y áº£nh", "Camera"),
-    ("thao tÃºng Camera", "can thiá»‡p camera"),
-    ("thao tÃºng camera", "can thiá»‡p camera"),
-    ("Nháº­n dáº¡ng Biá»ƒn xe", "Nháº­n dáº¡ng biá»ƒn sá»‘ xe"),
-    ("Biá»ƒn xe", "biá»ƒn sá»‘ xe"),
-    ("váº­t thá»ƒ khÃ´ng cÃ³ ngÆ°á»i", "váº­t thá»ƒ bá» quÃªn"),
-    ("Äá»‘i tÆ°á»£ng Bá» quÃªn", "váº­t thá»ƒ bá» quÃªn"),
+    ("Linhh hoạt hóa đơn", "Linh hoạt thanh toán"),
+    ("Linhh hoạt Thanh toán", "Linh hoạt thanh toán"),
+    ("Linh hoạt hóa đơn", "Linh hoạt thanh toán"),
+    ("hóa đơn hàng tháng", "thanh toán hàng tháng"),
+    ("chu kỳ hóa đơn", "chu kỳ thanh toán"),
+    ("mẫu AI", "mô hình AI"),
+    ("các mẫu AI", "các mô hình AI"),
+    ("máy ảnh", "camera"),
+    ("Máy ảnh", "Camera"),
+    ("thao túng Camera", "can thiệp camera"),
+    ("thao túng camera", "can thiệp camera"),
+    ("Nhận dạng Biển xe", "Nhận dạng biển số xe"),
+    ("Biển xe", "biển số xe"),
+    ("vật thể không có người", "vật thể bỏ quên"),
+    ("Đối tượng Bỏ quên", "vật thể bỏ quên"),
     ("leo climbing", "leo"),
-    ("PhÃ¡t hiá»‡n Äáº¥u tranh", "PhÃ¡t hiá»‡n Ä‘Ã¡nh nhau"),
-    ("PhÃ¡t hiá»‡n Ä‘áº¥u tranh", "PhÃ¡t hiá»‡n Ä‘Ã¡nh nhau"),
-    ("Ä‘Ã¡nh tranh", "Ä‘Ã¡nh nhau"),
-    ("LÃ m sáº¡ch bÃ n", "dá»n bÃ n"),
-    ("Táº§m nhÃ¬n TrÃªn chá»—", "AI Vision táº¡i chá»—"),
-    ("TrÃªn chá»—", "táº¡i chá»—"),
-    ("trÃªn chá»—", "táº¡i chá»—"),
-    ("thiáº¿t bá»‹ cáº¡nh", "thiáº¿t bá»‹ biÃªn"),
-    ("trÃ­ tuá»‡ Edge", "trÃ­ tuá»‡ biÃªn"),
-    ("Ä‘á»™ng cÆ¡ quyáº¿t Ä‘á»‹nh", "há»‡ thá»‘ng ra quyáº¿t Ä‘á»‹nh"),
-    ("cÆ¡ sá»Ÿ háº¡ táº§ng báº£o thá»§ CCTV", "háº¡ táº§ng CCTV truyá»n thá»‘ng"),
-    ("báº£o thá»§ CCTV", "CCTV truyá»n thá»‘ng"),
-    ("nhÃ³m trang web", "Ä‘á»™i ngÅ© táº¡i Ä‘á»‹a Ä‘iá»ƒm"),
-    ("má»i trang web", "má»i Ä‘á»‹a Ä‘iá»ƒm"),
-    ("trang web", "Ä‘á»‹a Ä‘iá»ƒm"),
-    ("trang web.", "Ä‘á»‹a Ä‘iá»ƒm."),
-    ("site teams", "Ä‘á»™i ngÅ© táº¡i Ä‘á»‹a Ä‘iá»ƒm"),
-    ("thÃºc bÃ¡ch", "cháº·t cháº½"),
-    ("cáº¥p bÃ¡ch hoáº¡t Ä‘á»™ng", "tÃ­nh cáº¥p thiáº¿t trong váº­n hÃ nh"),
+    ("Phát hiện Đấu tranh", "Phát hiện đánh nhau"),
+    ("Phát hiện đấu tranh", "Phát hiện đánh nhau"),
+    ("đánh tranh", "đánh nhau"),
+    ("Làm sạch bàn", "dọn bàn"),
+    ("Tầm nhìn Trên chỗ", "AI Vision tại chỗ"),
+    ("Trên chỗ", "tại chỗ"),
+    ("trên chỗ", "tại chỗ"),
+    ("thiết bị cạnh", "thiết bị biên"),
+    ("trí tuệ Edge", "trí tuệ biên"),
+    ("động cơ quyết định", "hệ thống ra quyết định"),
+    ("cơ sở hạ tầng bảo thủ CCTV", "hạ tầng CCTV truyền thống"),
+    ("bảo thủ CCTV", "CCTV truyền thống"),
+    ("nhóm trang web", "đội ngũ tại địa điểm"),
+    ("mọi trang web", "mọi địa điểm"),
+    ("trang web", "địa điểm"),
+    ("trang web.", "địa điểm."),
+    ("site teams", "đội ngũ tại địa điểm"),
+    ("thúc bách", "chặt chẽ"),
+    ("cấp bách hoạt động", "tính cấp thiết trong vận hành"),
 ]
 
 BANNED_TRANSLATION_FRAGMENTS_VI = [
-    "Linhh", "leo climbing", "Äáº¥u tranh", "Ä‘áº¥u tranh", "thao tÃºng Camera", "thao tÃºng camera",
-    "váº­t thá»ƒ khÃ´ng cÃ³ ngÆ°á»i", "Biá»ƒn xe", "mÃ¡y áº£nh", "MÃ¡y áº£nh", "trang web", "TrÃªn chá»—", "trÃªn chá»—",
+    "Linhh", "leo climbing", "Đấu tranh", "đấu tranh", "thao túng Camera", "thao túng camera",
+    "vật thể không có người", "Biển xe", "máy ảnh", "Máy ảnh", "trang web", "Trên chỗ", "trên chỗ",
 ]
 
 
@@ -1293,14 +1293,14 @@ def postprocess_translation(text: str, original_text: str, role: str = "body", t
 
     # Spacing around bullets: keep compact for flyer labels.
     t = re.sub(r"\s+([,.;:!?])", r"\1", t)
-    t = re.sub(r"([â€¢âœ“Ã¼])\s*", r"\1 ", t)
+    t = re.sub(r"([•✓ü])\s*", r"\1 ", t)
     t = re.sub(r"\s+", " ", t) if "\n" not in t else re.sub(r"[ \t]+", " ", t)
 
     # Keep protected product names clean if the model inserted odd spacing/casing.
     t = re.sub(r"CXVIEW\s+GPT\s+Box", "CXVIEW GPT Box", t, flags=re.I)
     t = re.sub(r"AI\s+Video\s+Analytics", "AI Video Analytics", t, flags=re.I)
-    t = re.sub(r"\bGPT\s+Há»™p\b", "GPT Box", t, flags=re.I)
-    t = re.sub(r"CXVIEW\s+GPT\s+Há»™p", "CXVIEW GPT Box", t, flags=re.I)
+    t = re.sub(r"\bGPT\s+Hộp\b", "GPT Box", t, flags=re.I)
+    t = re.sub(r"CXVIEW\s+GPT\s+Hộp", "CXVIEW GPT Box", t, flags=re.I)
 
     # Tiny labels should not end with periods.
     if role in {"label", "title", "cta"}:
@@ -1443,7 +1443,7 @@ class FontResolver:
 
     @staticmethod
     def _font_supports_vietnamese(path: str) -> bool:
-        probe = "ÄƒÃ¢ÃªÃ´Æ¡Æ°Ä‘Ä‚Ã‚ÃŠÃ”Æ Æ¯ÄÃ¡Ã áº£Ã£áº¡áº¥áº§áº©áº«áº­áº¯áº±áº³áºµáº·Ã©Ã¨áº»áº½áº¹áº¿á»á»ƒá»…á»‡Ã­Ã¬á»‰Ä©á»‹Ã³Ã²á»Ãµá»á»‘á»“á»•á»—á»™á»›á»á»Ÿá»¡á»£ÃºÃ¹á»§Å©á»¥á»©á»«á»­á»¯á»±Ã½á»³á»·á»¹á»µ"
+        probe = "ăâêôơưđĂÂÊÔƠƯĐáàảãạấầẩẫậắằẳẵặéèẻẽẹếềểễệíìỉĩịóòỏõọốồổỗộớờởỡợúùủũụứừửữựýỳỷỹỵ"
         try:
             font = fitz.Font(fontfile=path)
             return all(font.has_glyph(ord(ch)) for ch in probe)
@@ -1770,7 +1770,7 @@ def find_symbol_font_file() -> Optional[str]:
         if c and Path(c).exists():
             try:
                 f = fitz.Font(fontfile=c)
-                if f.has_glyph(ord("âœ“")):
+                if f.has_glyph(ord("✓")):
                     return c
             except Exception:
                 continue
@@ -1810,19 +1810,19 @@ def draw_layout(page: fitz.Page, layout: LayoutResult, block: TextBlock, resolve
 
         draw_line = line
         leading_check = False
-        if draw_line.startswith("âœ“ "):
+        if draw_line.startswith("✓ "):
             leading_check = True
             draw_line = draw_line[2:].lstrip()
-        elif draw_line == "âœ“":
+        elif draw_line == "✓":
             leading_check = True
             draw_line = ""
 
-        full_line_for_measure = ("âœ“ " + draw_line) if leading_check else draw_line
+        full_line_for_measure = ("✓ " + draw_line) if leading_check else draw_line
         if layout.align == "center":
-            w = measure_font.text_length(full_line_for_measure.replace("âœ“", "â€¢"), fontsize=layout.fontsize)
+            w = measure_font.text_length(full_line_for_measure.replace("✓", "•"), fontsize=layout.fontsize)
             x = x0 + max(0, (layout.rect.width - w) / 2)
         elif layout.align == "right":
-            w = measure_font.text_length(full_line_for_measure.replace("âœ“", "â€¢"), fontsize=layout.fontsize)
+            w = measure_font.text_length(full_line_for_measure.replace("✓", "•"), fontsize=layout.fontsize)
             x = x1 - w
         else:
             x = x0
@@ -1831,26 +1831,26 @@ def draw_layout(page: fitz.Page, layout: LayoutResult, block: TextBlock, resolve
             if symbol_file and symbol_font:
                 page.insert_text(
                     point=fitz.Point(x, y),
-                    text="âœ“",
+                    text="✓",
                     fontsize=layout.fontsize,
                     fontname="FSymbolVN",
                     fontfile=symbol_file,
                     color=color,
                     overlay=True,
                 )
-                x += symbol_font.text_length("âœ“ ", fontsize=layout.fontsize) + 1.0
+                x += symbol_font.text_length("✓ ", fontsize=layout.fontsize) + 1.0
             else:
                 # Last-resort symbol that most sans fonts support.
                 page.insert_text(
                     point=fitz.Point(x, y),
-                    text="â€¢",
+                    text="•",
                     fontsize=layout.fontsize,
                     fontname=fontname,
                     fontfile=fontfile,
                     color=color,
                     overlay=True,
                 )
-                x += measure_font.text_length("â€¢ ", fontsize=layout.fontsize) + 1.0
+                x += measure_font.text_length("• ", fontsize=layout.fontsize) + 1.0
 
         if draw_line:
             page.insert_text(
@@ -2162,13 +2162,13 @@ def normalize_special_chars(text: str) -> str:
     if not text:
         return text
     t = text.replace("\u00a0", " ")
-    t = t.replace("\uf0fc", "âœ“")
-    # Many PDFs using Wingdings expose checkmarks as Ã¼. Treat it as a checkmark
+    t = t.replace("\uf0fc", "✓")
+    # Many PDFs using Wingdings expose checkmarks as ü. Treat it as a checkmark
     # only at bullet/check positions so normal words are not affected.
-    t = re.sub(r"(?m)^\s*Ã¼\s*", "âœ“ ", t)
-    t = re.sub(r"(?m)([\n\r])\s*Ã¼\s*", r"\1âœ“ ", t)
+    t = re.sub(r"(?m)^\s*ü\s*", "✓ ", t)
+    t = re.sub(r"(?m)([\n\r])\s*ü\s*", r"\1✓ ", t)
     # Normalize common bullet lookalikes.
-    t = t.replace("Â·", "â€¢")
+    t = t.replace("·", "•")
     return t
 
 
@@ -2201,7 +2201,7 @@ def split_line_into_text_islands(line: TextLine) -> List[TextLine]:
         prev_text = prev.text.strip()
         next_text = sp.text.strip()
         # Keep bullet/checkmark and its text together.
-        keep_with_prev = prev_text in {"â€¢", "âœ“", "Ã¼", "-", "â€“"}
+        keep_with_prev = prev_text in {"•", "✓", "ü", "-", "–"}
         # Large gaps are usually table cells or separate slide columns.
         split_gap = max(18.0, fs * 3.2)
         if gap > split_gap and not keep_with_prev and next_text not in {",", ".", ":", ";"}:
@@ -2356,63 +2356,63 @@ def parse_pdf_to_ir(source_pdf: str) -> DocumentIR:
 
 # Stronger, more compact terminology memory for slide labels and tiny boxes.
 EXACT_TRANSLATION_MEMORY_VI.update({
-    "our solutions": "GIáº¢I PHÃP",
-    "vehicle plate recognition": "Nháº­n dáº¡ng biá»ƒn sá»‘",
-    "fence and wall climbing detection": "Leo rÃ o/tÆ°á»ng",
-    "intrusion detection": "XÃ¢m nháº­p",
-    "camera tampering detection": "Can thiá»‡p camera",
-    "ppe and uniform detection": "PPE & Ä‘á»“ng phá»¥c",
-    "forklift and vehicle safety detection": "An toÃ n xe nÃ¢ng",
-    "falls and slips detection": "TÃ© ngÃ£/trÆ°á»£t",
-    "fighting detection": "ÄÃ¡nh nhau",
-    "unusual crowd detection": "ÄÃ¡m Ä‘Ã´ng báº¥t thÆ°á»ng",
-    "smoke and fire detection": "KhÃ³i/lá»­a",
-    "smart workstation monitoring": "GiÃ¡m sÃ¡t tráº¡m",
-    "automated product counting": "Äáº¿m sáº£n pháº©m",
-    "product quality inspection": "Kiá»ƒm tra cháº¥t lÆ°á»£ng",
-    "heat maps & route maps analysis": "Báº£n Ä‘á»“ nhiá»‡t/lá»™ trÃ¬nh",
-    "heat maps and route maps analysis": "Báº£n Ä‘á»“ nhiá»‡t/lá»™ trÃ¬nh",
-    "dwell time report": "Thá»i gian lÆ°u láº¡i",
-    "traffic counting": "Äáº¿m lÆ°u lÆ°á»£ng",
-    "customer demographic analysis": "NhÃ¢n kháº©u há»c",
-    "customer engagement detection": "TÆ°Æ¡ng tÃ¡c khÃ¡ch hÃ ng",
-    "table cleaning detection": "Dá»n bÃ n",
-    "patrol automatic report": "BÃ¡o cÃ¡o tuáº§n tra",
-    "unattended object detection": "Váº­t thá»ƒ bá» quÃªn",
-    "package": "GÃ³i",
-    "tier": "Cáº¥p",
+    "our solutions": "GIẢI PHÁP",
+    "vehicle plate recognition": "Nhận dạng biển số",
+    "fence and wall climbing detection": "Leo rào/tường",
+    "intrusion detection": "Xâm nhập",
+    "camera tampering detection": "Can thiệp camera",
+    "ppe and uniform detection": "PPE & đồng phục",
+    "forklift and vehicle safety detection": "An toàn xe nâng",
+    "falls and slips detection": "Té ngã/trượt",
+    "fighting detection": "Đánh nhau",
+    "unusual crowd detection": "Đám đông bất thường",
+    "smoke and fire detection": "Khói/lửa",
+    "smart workstation monitoring": "Giám sát trạm",
+    "automated product counting": "Đếm sản phẩm",
+    "product quality inspection": "Kiểm tra chất lượng",
+    "heat maps & route maps analysis": "Bản đồ nhiệt/lộ trình",
+    "heat maps and route maps analysis": "Bản đồ nhiệt/lộ trình",
+    "dwell time report": "Thời gian lưu lại",
+    "traffic counting": "Đếm lưu lượng",
+    "customer demographic analysis": "Nhân khẩu học",
+    "customer engagement detection": "Tương tác khách hàng",
+    "table cleaning detection": "Dọn bàn",
+    "patrol automatic report": "Báo cáo tuần tra",
+    "unattended object detection": "Vật thể bỏ quên",
+    "package": "Gói",
+    "tier": "Cấp",
     "cameras": "Camera",
-    "concurrent ai streams active on ai models existed": "Luá»“ng AI Ä‘á»“ng thá»i\ntrÃªn mÃ´ hÃ¬nh hiá»‡n cÃ³",
-    "concurrent ai streams": "Luá»“ng AI Ä‘á»“ng thá»i",
-    "active on ai models existed": "trÃªn mÃ´ hÃ¬nh hiá»‡n cÃ³",
-    "monthly (usd)": "HÃ ng thÃ¡ng\n(USD)",
-    "24-month (usd)": "24 thÃ¡ng\n(USD)",
-    "36-month (usd)": "36 thÃ¡ng\n(USD)",
-    "billing flexibility": "Thanh toÃ¡n linh hoáº¡t",
-    "concurrent ai stream ratio": "Tá»· lá»‡ luá»“ng AI Ä‘á»“ng thá»i",
-    "book your live demo": "Äáº·t lá»‹ch demo",
-    "customer on - premise ai vision infrastructure": "Háº¡ táº§ng AI Vision táº¡i chá»—",
-    "customer on-premise ai vision infrastructure": "Háº¡ táº§ng AI Vision táº¡i chá»—",
-    "no camera replacement required when streams are available": "KhÃ´ng cáº§n thay camera khi cÃ³ luá»“ng video",
-    "on-premise processing supports latency, bandwidth control and data sovereignty": "Xá»­ lÃ½ táº¡i chá»—: Ä‘á»™ trá»… tháº¥p, tiáº¿t kiá»‡m bÄƒng thÃ´ng, chá»§ quyá»n dá»¯ liá»‡u",
-    "automated reports reduce manual debate with employees, vendors and site teams": "BÃ¡o cÃ¡o tá»± Ä‘á»™ng giáº£m tranh luáº­n vá»›i nhÃ¢n viÃªn, nhÃ  cung cáº¥p vÃ  Ä‘á»™i ngÅ© táº¡i Ä‘á»‹a Ä‘iá»ƒm",
-    "management receives objective before/after performance data for every site": "Ban quáº£n lÃ½ cÃ³ dá»¯ liá»‡u trÆ°á»›c/sau khÃ¡ch quan cho tá»«ng Ä‘á»‹a Ä‘iá»ƒm",
-    "Ã¼no camera replacement required when streams are available": "âœ“ KhÃ´ng cáº§n thay camera khi cÃ³ luá»“ng video",
-    "Ã¼on-premise processing supports latency, bandwidth control and data sovereignty": "âœ“ Xá»­ lÃ½ táº¡i chá»—: Ä‘á»™ trá»… tháº¥p, tiáº¿t kiá»‡m bÄƒng thÃ´ng, chá»§ quyá»n dá»¯ liá»‡u",
-    "Ã¼automated reports reduce manual debate with employees, vendors and site teams": "âœ“ BÃ¡o cÃ¡o tá»± Ä‘á»™ng giáº£m tranh luáº­n vá»›i nhÃ¢n viÃªn, nhÃ  cung cáº¥p vÃ  Ä‘á»™i ngÅ© táº¡i Ä‘á»‹a Ä‘iá»ƒm",
-    "Ã¼management receives objective before/after performance data for every site": "âœ“ Ban quáº£n lÃ½ cÃ³ dá»¯ liá»‡u trÆ°á»›c/sau khÃ¡ch quan cho tá»«ng Ä‘á»‹a Ä‘iá»ƒm",
+    "concurrent ai streams active on ai models existed": "Luồng AI đồng thời\ntrên mô hình hiện có",
+    "concurrent ai streams": "Luồng AI đồng thời",
+    "active on ai models existed": "trên mô hình hiện có",
+    "monthly (usd)": "Hàng tháng\n(USD)",
+    "24-month (usd)": "24 tháng\n(USD)",
+    "36-month (usd)": "36 tháng\n(USD)",
+    "billing flexibility": "Thanh toán linh hoạt",
+    "concurrent ai stream ratio": "Tỷ lệ luồng AI đồng thời",
+    "book your live demo": "Đặt lịch demo",
+    "customer on - premise ai vision infrastructure": "Hạ tầng AI Vision tại chỗ",
+    "customer on-premise ai vision infrastructure": "Hạ tầng AI Vision tại chỗ",
+    "no camera replacement required when streams are available": "Không cần thay camera khi có luồng video",
+    "on-premise processing supports latency, bandwidth control and data sovereignty": "Xử lý tại chỗ: độ trễ thấp, tiết kiệm băng thông, chủ quyền dữ liệu",
+    "automated reports reduce manual debate with employees, vendors and site teams": "Báo cáo tự động giảm tranh luận với nhân viên, nhà cung cấp và đội ngũ tại địa điểm",
+    "management receives objective before/after performance data for every site": "Ban quản lý có dữ liệu trước/sau khách quan cho từng địa điểm",
+    "üno camera replacement required when streams are available": "✓ Không cần thay camera khi có luồng video",
+    "üon-premise processing supports latency, bandwidth control and data sovereignty": "✓ Xử lý tại chỗ: độ trễ thấp, tiết kiệm băng thông, chủ quyền dữ liệu",
+    "üautomated reports reduce manual debate with employees, vendors and site teams": "✓ Báo cáo tự động giảm tranh luận với nhân viên, nhà cung cấp và đội ngũ tại địa điểm",
+    "ümanagement receives objective before/after performance data for every site": "✓ Ban quản lý có dữ liệu trước/sau khách quan cho từng địa điểm",
 })
 
 BAD_PHRASE_REPLACEMENTS_VI.extend([
-    ("TÃ¡c Ä‘á»™ng kinh doanh", "TÃ¡c Ä‘á»™ng kinh doanh"),
-    ("thá»i gian biá»ƒu tham vá»ng", "lá»™ trÃ¬nh triá»ƒn khai nhanh"),
-    ("sá»± tÃ­nh cáº¥p thiáº¿t", "tÃ­nh cáº¥p thiáº¿t"),
-    ("thÃ´ng tin hÃ nh Ä‘á»™ng", "thÃ´ng tin cÃ³ thá»ƒ hÃ nh Ä‘á»™ng"),
-    ("theo dÃµi báº£ng Ä‘iá»u khiá»ƒn", "dashboard"),
-    ("AI mÃ´ hÃ¬nh", "mÃ´ hÃ¬nh AI"),
-    ("CXVIEW AI mÃ´ hÃ¬nh", "mÃ´ hÃ¬nh CXVIEW AI"),
+    ("Tác động kinh doanh", "Tác động kinh doanh"),
+    ("thời gian biểu tham vọng", "lộ trình triển khai nhanh"),
+    ("sự tính cấp thiết", "tính cấp thiết"),
+    ("thông tin hành động", "thông tin có thể hành động"),
+    ("theo dõi bảng điều khiển", "dashboard"),
+    ("AI mô hình", "mô hình AI"),
+    ("CXVIEW AI mô hình", "mô hình CXVIEW AI"),
 ])
-BANNED_TRANSLATION_FRAGMENTS_VI.extend(["thá»i gian biá»ƒu tham vá»ng", "sá»± tÃ­nh cáº¥p thiáº¿t", "AI mÃ´ hÃ¬nh"])
+BANNED_TRANSLATION_FRAGMENTS_VI.extend(["thời gian biểu tham vọng", "sự tính cấp thiết", "AI mô hình"])
 
 
 def normalize_translation_key(text: str) -> str:
@@ -2420,8 +2420,8 @@ def normalize_translation_key(text: str) -> str:
     text = text.replace("\n", " ")
     text = text.replace("&", " & ")
     text = re.sub(r"\s+", " ", text).strip().lower()
-    # Match Wingdings checkmark extraction exposed as Ã¼.
-    text = re.sub(r"^âœ“\s*", "Ã¼", text)
+    # Match Wingdings checkmark extraction exposed as ü.
+    text = re.sub(r"^✓\s*", "ü", text)
     return text
 
 
@@ -2432,25 +2432,25 @@ def postprocess_translation(text: str, original_text: str, role: str = "body", t
 
     # Preserve leading bullets/checkmarks from the source when the model drops them.
     original_clean = normalize_special_chars(original_text.strip())
-    if original_clean.startswith("â€¢") and not t.startswith("â€¢"):
-        t = "â€¢ " + t.lstrip("â€¢ ").strip()
-    if original_clean.startswith("âœ“") and not t.startswith("âœ“"):
-        t = "âœ“ " + t.lstrip("âœ“ ").strip()
+    if original_clean.startswith("•") and not t.startswith("•"):
+        t = "• " + t.lstrip("• ").strip()
+    if original_clean.startswith("✓") and not t.startswith("✓"):
+        t = "✓ " + t.lstrip("✓ ").strip()
 
     for bad, good in BAD_PHRASE_REPLACEMENTS_VI:
         t = t.replace(bad, good)
 
     # Product and acronym cleanup.
     t = re.sub(r"CXVIEW\s+GPT\s+Box", "CXVIEW GPT Box", t, flags=re.I)
-    t = re.sub(r"CXVIEW\s+GPT\s+Há»™p", "CXVIEW GPT Box", t, flags=re.I)
-    t = re.sub(r"\bGPT\s+Há»™p\b", "GPT Box", t, flags=re.I)
+    t = re.sub(r"CXVIEW\s+GPT\s+Hộp", "CXVIEW GPT Box", t, flags=re.I)
+    t = re.sub(r"\bGPT\s+Hộp\b", "GPT Box", t, flags=re.I)
     t = re.sub(r"AI\s+Video\s+Analytics", "AI Video Analytics", t, flags=re.I)
-    t = re.sub(r"\b24\s*-\s*thÃ¡ng\b", "24 thÃ¡ng", t, flags=re.I)
-    t = re.sub(r"\b36\s*-\s*thÃ¡ng\b", "36 thÃ¡ng", t, flags=re.I)
+    t = re.sub(r"\b24\s*-\s*tháng\b", "24 tháng", t, flags=re.I)
+    t = re.sub(r"\b36\s*-\s*tháng\b", "36 tháng", t, flags=re.I)
 
     # Normalize spacing without destroying deliberate line breaks.
     t = re.sub(r"\s+([,.;:!?])", r"\1", t)
-    t = re.sub(r"([â€¢âœ“])\s*", r"\1 ", t)
+    t = re.sub(r"([•✓])\s*", r"\1 ", t)
     if "\n" in t:
         t = re.sub(r"[ \t]+", " ", t)
         t = re.sub(r" *\n *", "\n", t)
@@ -2460,7 +2460,7 @@ def postprocess_translation(text: str, original_text: str, role: str = "body", t
     # Tiny labels: no trailing punctuation and avoid verbose prefix where memory failed.
     if role in {"label", "title", "cta"}:
         t = t.strip().rstrip(".")
-        t = re.sub(r"^PhÃ¡t hiá»‡n\s+(can thiá»‡p camera|xÃ¢m nháº­p|khÃ³i/lá»­a|Ä‘Ã¡nh nhau|váº­t thá»ƒ bá» quÃªn)$", r"\1", t, flags=re.I)
+        t = re.sub(r"^Phát hiện\s+(can thiệp camera|xâm nhập|khói/lửa|đánh nhau|vật thể bỏ quên)$", r"\1", t, flags=re.I)
 
     return t.strip()
 
@@ -2513,7 +2513,7 @@ def font_supports_vietnamese(path: str) -> bool:
         return False
     try:
         font = fitz.Font(fontfile=path)
-        sample = "ÄƒÃ¢Ä‘ÃªÃ´Æ¡Æ°ÃÃ€áº¢Ãƒáº áº¿á»‡á»™á»£á»­á»¯Äâœ“â€¢"
+        sample = "ăâđêôơưÁÀẢÃẠếệộợửữĐ✓•"
         return all(font.has_glyph(ord(ch)) for ch in sample if not ch.isspace())
     except Exception:
         return False
@@ -2700,7 +2700,7 @@ def find_symbol_font_file() -> Optional[str]:
         if c and Path(c).exists():
             try:
                 f = fitz.Font(fontfile=c)
-                if f.has_glyph(ord("âœ“")):
+                if f.has_glyph(ord("✓")):
                     return c
             except Exception:
                 continue
@@ -2740,19 +2740,19 @@ def draw_layout(page: fitz.Page, layout: LayoutResult, block: TextBlock, resolve
 
         draw_line = line
         leading_check = False
-        if draw_line.startswith("âœ“ "):
+        if draw_line.startswith("✓ "):
             leading_check = True
             draw_line = draw_line[2:].lstrip()
-        elif draw_line == "âœ“":
+        elif draw_line == "✓":
             leading_check = True
             draw_line = ""
 
-        full_line_for_measure = ("âœ“ " + draw_line) if leading_check else draw_line
+        full_line_for_measure = ("✓ " + draw_line) if leading_check else draw_line
         if layout.align == "center":
-            w = measure_font.text_length(full_line_for_measure.replace("âœ“", "â€¢"), fontsize=layout.fontsize)
+            w = measure_font.text_length(full_line_for_measure.replace("✓", "•"), fontsize=layout.fontsize)
             x = x0 + max(0, (layout.rect.width - w) / 2)
         elif layout.align == "right":
-            w = measure_font.text_length(full_line_for_measure.replace("âœ“", "â€¢"), fontsize=layout.fontsize)
+            w = measure_font.text_length(full_line_for_measure.replace("✓", "•"), fontsize=layout.fontsize)
             x = x1 - w
         else:
             x = x0
@@ -2761,26 +2761,26 @@ def draw_layout(page: fitz.Page, layout: LayoutResult, block: TextBlock, resolve
             if symbol_file and symbol_font:
                 page.insert_text(
                     point=fitz.Point(x, y),
-                    text="âœ“",
+                    text="✓",
                     fontsize=layout.fontsize,
                     fontname="FSymbolVN",
                     fontfile=symbol_file,
                     color=color,
                     overlay=True,
                 )
-                x += symbol_font.text_length("âœ“ ", fontsize=layout.fontsize) + 1.0
+                x += symbol_font.text_length("✓ ", fontsize=layout.fontsize) + 1.0
             else:
                 # Last-resort symbol that most sans fonts support.
                 page.insert_text(
                     point=fitz.Point(x, y),
-                    text="â€¢",
+                    text="•",
                     fontsize=layout.fontsize,
                     fontname=fontname,
                     fontfile=fontfile,
                     color=color,
                     overlay=True,
                 )
-                x += measure_font.text_length("â€¢ ", fontsize=layout.fontsize) + 1.0
+                x += measure_font.text_length("• ", fontsize=layout.fontsize) + 1.0
 
         if draw_line:
             page.insert_text(
@@ -2864,114 +2864,114 @@ ORIGINAL_POSTPROCESS_TRANSLATION = postprocess_translation
 # They are shorter than the full faithful translation when the bbox is small.
 COMPACT_TRANSLATION_MEMORY_VI: Dict[str, str] = {
     # global headers
-    "our solutions": "GIáº¢I PHÃP",
-    "our process": "QUY TRÃŒNH",
-    "platform & technology": "Ná»€N Táº¢NG & CÃ”NG NGHá»†",
-    "about cxview": "GIá»šI THIá»†U CXVIEW",
+    "our solutions": "GIẢI PHÁP",
+    "our process": "QUY TRÌNH",
+    "platform & technology": "NỀN TẢNG & CÔNG NGHỆ",
+    "about cxview": "GIỚI THIỆU CXVIEW",
 
     # pricing table
-    "package": "GÃ³i",
-    "tier": "Cáº¥p",
+    "package": "Gói",
+    "tier": "Cấp",
     "cameras": "Camera",
-    "concurrent ai streams": "Luá»“ng AI Ä‘á»“ng thá»i",
-    "active on ai models existed": "trÃªn mÃ´ hÃ¬nh AI hiá»‡n cÃ³",
-    "concurrent ai streams active on ai models existed": "Luá»“ng AI Ä‘á»“ng thá»i\ntrÃªn mÃ´ hÃ¬nh AI hiá»‡n cÃ³",
-    "monthly (usd)": "HÃ ng thÃ¡ng\n(USD)",
-    "24-month (usd)": "24 thÃ¡ng\n(USD)",
-    "36-month (usd)": "36 thÃ¡ng\n(USD)",
-    "concurrent ai stream ratio": "Tá»· lá»‡ luá»“ng AI Ä‘á»“ng thá»i",
-    "billing flexibility": "Linh hoáº¡t thanh toÃ¡n",
+    "concurrent ai streams": "Luồng AI đồng thời",
+    "active on ai models existed": "trên mô hình AI hiện có",
+    "concurrent ai streams active on ai models existed": "Luồng AI đồng thời\ntrên mô hình AI hiện có",
+    "monthly (usd)": "Hàng tháng\n(USD)",
+    "24-month (usd)": "24 tháng\n(USD)",
+    "36-month (usd)": "36 tháng\n(USD)",
+    "concurrent ai stream ratio": "Tỷ lệ luồng AI đồng thời",
+    "billing flexibility": "Linh hoạt thanh toán",
 
     # page 3 categories
     "ai camera in security": "AI CAMERA\nAN NINH",
-    "ai camera in operation": "AI CAMERA\nVáº¬N HÃ€NH",
-    "ai camera in safety": "AI CAMERA\nAN TOÃ€N",
+    "ai camera in operation": "AI CAMERA\nVẬN HÀNH",
+    "ai camera in safety": "AI CAMERA\nAN TOÀN",
 
     # page 3 solution labels - ultra short versions
-    "camera tampering detection": "Can thiá»‡p camera",
-    "vehicle plate recognition": "Nháº­n dáº¡ng biá»ƒn sá»‘",
-    "patrol automatic report": "BÃ¡o cÃ¡o tuáº§n tra",
-    "unattended object detection": "Váº­t thá»ƒ bá» quÃªn",
-    "fence and wall climbing detection": "Leo rÃ o/tÆ°á»ng",
-    "intrusion detection": "XÃ¢m nháº­p",
-    "product quality inspection": "Kiá»ƒm tra cháº¥t lÆ°á»£ng",
-    "customer demographic analysis": "NhÃ¢n kháº©u há»c",
-    "customer engagement detection": "TÆ°Æ¡ng tÃ¡c khÃ¡ch hÃ ng",
-    "smart workstation monitoring": "GiÃ¡m sÃ¡t tráº¡m",
-    "heat maps & route maps analysis": "Báº£n Ä‘á»“ nhiá»‡t/lá»™ trÃ¬nh",
-    "heat maps and route maps analysis": "Báº£n Ä‘á»“ nhiá»‡t/lá»™ trÃ¬nh",
-    "traffic counting": "Äáº¿m lÆ°u lÆ°á»£ng",
-    "automated product counting": "Äáº¿m sáº£n pháº©m",
-    "dwell time report": "Thá»i gian lÆ°u láº¡i",
-    "table cleaning detection": "Dá»n bÃ n",
-    "falls and slips detection": "TÃ© ngÃ£/trÆ°á»£t",
-    "unusual crowd detection": "ÄÃ¡m Ä‘Ã´ng báº¥t thÆ°á»ng",
-    "ppe and uniform detection": "PPE & Ä‘á»“ng phá»¥c",
-    "forklift and vehicle safety detection": "An toÃ n xe nÃ¢ng",
-    "smoke and fire detection": "KhÃ³i/lá»­a",
-    "fighting detection": "ÄÃ¡nh nhau",
+    "camera tampering detection": "Can thiệp camera",
+    "vehicle plate recognition": "Nhận dạng biển số",
+    "patrol automatic report": "Báo cáo tuần tra",
+    "unattended object detection": "Vật thể bỏ quên",
+    "fence and wall climbing detection": "Leo rào/tường",
+    "intrusion detection": "Xâm nhập",
+    "product quality inspection": "Kiểm tra chất lượng",
+    "customer demographic analysis": "Nhân khẩu học",
+    "customer engagement detection": "Tương tác khách hàng",
+    "smart workstation monitoring": "Giám sát trạm",
+    "heat maps & route maps analysis": "Bản đồ nhiệt/lộ trình",
+    "heat maps and route maps analysis": "Bản đồ nhiệt/lộ trình",
+    "traffic counting": "Đếm lưu lượng",
+    "automated product counting": "Đếm sản phẩm",
+    "dwell time report": "Thời gian lưu lại",
+    "table cleaning detection": "Dọn bàn",
+    "falls and slips detection": "Té ngã/trượt",
+    "unusual crowd detection": "Đám đông bất thường",
+    "ppe and uniform detection": "PPE & đồng phục",
+    "forklift and vehicle safety detection": "An toàn xe nâng",
+    "smoke and fire detection": "Khói/lửa",
+    "fighting detection": "Đánh nhau",
 
     # page 4 process
-    "strategic understanding": "Tháº¥u hiá»ƒu chiáº¿n lÆ°á»£c",
-    "tailored solution architecture": "Kiáº¿n trÃºc giáº£i phÃ¡p tÃ¹y chá»‰nh",
-    "pilot (poc) & validation": "Pilot (POC) & xÃ¡c thá»±c",
-    "scale & sustain": "Má»Ÿ rá»™ng & duy trÃ¬",
-    "book your live demo": "Äáº·t lá»‹ch\ndemo",
-    "near-zero latency": "Äá»™ trá»… gáº§n 0",
-    "data sovereignty": "Chá»§ quyá»n dá»¯ liá»‡u",
-    "cost efficiency": "Tá»‘i Æ°u chi phÃ­",
-    "bandwidth savings": "Tiáº¿t kiá»‡m bÄƒng thÃ´ng",
+    "strategic understanding": "Thấu hiểu chiến lược",
+    "tailored solution architecture": "Kiến trúc giải pháp tùy chỉnh",
+    "pilot (poc) & validation": "Pilot (POC) & xác thực",
+    "scale & sustain": "Mở rộng & duy trì",
+    "book your live demo": "Đặt lịch\ndemo",
+    "near-zero latency": "Độ trễ gần 0",
+    "data sovereignty": "Chủ quyền dữ liệu",
+    "cost efficiency": "Tối ưu chi phí",
+    "bandwidth savings": "Tiết kiệm băng thông",
 
     # page 5
-    "how cxview delivers the transformation": "CXVIEW triá»ƒn khai chuyá»ƒn Ä‘á»•i nhÆ° tháº¿ nÃ o",
-    "why a transformation partner is essential": "VÃ¬ sao cáº§n Ä‘á»‘i tÃ¡c chuyá»ƒn Ä‘á»•i",
-    "core deployment benefits": "Lá»£i Ã­ch triá»ƒn khai cá»‘t lÃµi",
-    "customer on - premise ai vision infrastructure": "Háº¡ táº§ng AI Vision táº¡i chá»—",
-    "customer on-premise ai vision infrastructure": "Háº¡ táº§ng AI Vision táº¡i chá»—",
-    "no camera replacement required when streams are available": "KhÃ´ng cáº§n thay camera khi cÃ³ luá»“ng video",
-    "on-premise processing supports latency, bandwidth control and data sovereignty": "Xá»­ lÃ½ táº¡i chá»—: Ä‘á»™ trá»… tháº¥p, tiáº¿t kiá»‡m bÄƒng thÃ´ng, chá»§ quyá»n dá»¯ liá»‡u",
-    "automated reports reduce manual debate with employees, vendors and site teams": "BÃ¡o cÃ¡o tá»± Ä‘á»™ng giáº£m tranh luáº­n vá»›i nhÃ¢n viÃªn, nhÃ  cung cáº¥p vÃ  Ä‘á»™i ngÅ© táº¡i Ä‘á»‹a Ä‘iá»ƒm",
-    "management receives objective before/after performance data for every site": "Ban quáº£n lÃ½ cÃ³ dá»¯ liá»‡u trÆ°á»›c/sau khÃ¡ch quan cho tá»«ng Ä‘á»‹a Ä‘iá»ƒm",
+    "how cxview delivers the transformation": "CXVIEW triển khai chuyển đổi như thế nào",
+    "why a transformation partner is essential": "Vì sao cần đối tác chuyển đổi",
+    "core deployment benefits": "Lợi ích triển khai cốt lõi",
+    "customer on - premise ai vision infrastructure": "Hạ tầng AI Vision tại chỗ",
+    "customer on-premise ai vision infrastructure": "Hạ tầng AI Vision tại chỗ",
+    "no camera replacement required when streams are available": "Không cần thay camera khi có luồng video",
+    "on-premise processing supports latency, bandwidth control and data sovereignty": "Xử lý tại chỗ: độ trễ thấp, tiết kiệm băng thông, chủ quyền dữ liệu",
+    "automated reports reduce manual debate with employees, vendors and site teams": "Báo cáo tự động giảm tranh luận với nhân viên, nhà cung cấp và đội ngũ tại địa điểm",
+    "management receives objective before/after performance data for every site": "Ban quản lý có dữ liệu trước/sau khách quan cho từng địa điểm",
 }
 
 
 # V_USERFIX_HEADER_MEMORY
 EXACT_TRANSLATION_MEMORY_VI.update({
-    "how cxview delivers the transformation": "CXVIEW triá»ƒn khai chuyá»ƒn Ä‘á»•i nhÆ° tháº¿ nÃ o",
-    "understand your goals, challenges and objectives.": "Hiá»ƒu má»¥c tiÃªu, thÃ¡ch thá»©c vÃ  má»¥c tiÃªu cá»§a báº¡n.",
-    "assess current systems & environment.": "ÄÃ¡nh giÃ¡ há»‡ thá»‘ng & mÃ´i trÆ°á»ng hiá»‡n táº¡i.",
+    "how cxview delivers the transformation": "CXVIEW triển khai chuyển đổi như thế nào",
+    "understand your goals, challenges and objectives.": "Hiểu mục tiêu, thách thức và mục tiêu của bạn.",
+    "assess current systems & environment.": "Đánh giá hệ thống & môi trường hiện tại.",
 })
 COMPACT_TRANSLATION_MEMORY_VI.update({
-    "how cxview delivers the transformation": "CXVIEW triá»ƒn khai chuyá»ƒn Ä‘á»•i nhÆ° tháº¿ nÃ o",
-    "understand your goals, challenges and objectives.": "Hiá»ƒu má»¥c tiÃªu & thÃ¡ch thá»©c cá»§a báº¡n.",
-    "assess current systems & environment.": "ÄÃ¡nh giÃ¡ há»‡ thá»‘ng & mÃ´i trÆ°á»ng hiá»‡n táº¡i.",
+    "how cxview delivers the transformation": "CXVIEW triển khai chuyển đổi như thế nào",
+    "understand your goals, challenges and objectives.": "Hiểu mục tiêu & thách thức của bạn.",
+    "assess current systems & environment.": "Đánh giá hệ thống & môi trường hiện tại.",
 })
 
 
 
 # V7 all-text translation memory for extractable headers / marketing copy.
 EXACT_TRANSLATION_MEMORY_VI.update({
-    "client challenges. cxview solutions. business impacts.": "ThÃ¡ch thá»©c khÃ¡ch hÃ ng. Giáº£i phÃ¡p CXVIEW. TÃ¡c Ä‘á»™ng kinh doanh.",
-    "how cxview delivers the transformation": "CXVIEW triá»ƒn khai chuyá»ƒn Ä‘á»•i nhÆ° tháº¿ nÃ o",
-    "cxview smart ai video analytics solution": "GIáº¢I PHÃP AI VIDEO ANALYTICS THÃ”NG MINH CXVIEW",
+    "client challenges. cxview solutions. business impacts.": "Thách thức khách hàng. Giải pháp CXVIEW. Tác động kinh doanh.",
+    "how cxview delivers the transformation": "CXVIEW triển khai chuyển đổi như thế nào",
+    "cxview smart ai video analytics solution": "GIẢI PHÁP AI VIDEO ANALYTICS THÔNG MINH CXVIEW",
     "cxview gpt box & ai video analytics": "CXVIEW GPT Box & AI Video Analytics",
     "& ai video analytics": "& AI Video Analytics",
-    "the new era of physical edge ai": "Ká»· nguyÃªn má»›i cá»§a AI biÃªn váº­t lÃ½",
-    "near-zero latency": "Äá»™ trá»… gáº§n báº±ng 0",
-    "data sovereignty": "Chá»§ quyá»n dá»¯ liá»‡u",
-    "cost efficiency": "Tá»‘i Æ°u chi phÃ­",
-    "bandwidth savings": "Tiáº¿t kiá»‡m bÄƒng thÃ´ng",
+    "the new era of physical edge ai": "Kỷ nguyên mới của AI biên vật lý",
+    "near-zero latency": "Độ trễ gần bằng 0",
+    "data sovereignty": "Chủ quyền dữ liệu",
+    "cost efficiency": "Tối ưu chi phí",
+    "bandwidth savings": "Tiết kiệm băng thông",
 })
 
 COMPACT_TRANSLATION_MEMORY_VI.update({
-    "client challenges. cxview solutions. business impacts.": "ThÃ¡ch thá»©c khÃ¡ch hÃ ng. Giáº£i phÃ¡p CXVIEW. TÃ¡c Ä‘á»™ng kinh doanh.",
-    "how cxview delivers the transformation": "CXVIEW triá»ƒn khai chuyá»ƒn Ä‘á»•i nhÆ° tháº¿ nÃ o",
-    "cxview smart ai video analytics solution": "GIáº¢I PHÃP AI VIDEO ANALYTICS THÃ”NG MINH CXVIEW",
-    "the new era of physical edge ai": "Ká»· nguyÃªn má»›i cá»§a AI biÃªn váº­t lÃ½",
-    "near-zero latency": "Äá»™ trá»… gáº§n 0",
-    "data sovereignty": "Chá»§ quyá»n dá»¯ liá»‡u",
-    "cost efficiency": "Tá»‘i Æ°u chi phÃ­",
-    "bandwidth savings": "Tiáº¿t kiá»‡m bÄƒng thÃ´ng",
+    "client challenges. cxview solutions. business impacts.": "Thách thức khách hàng. Giải pháp CXVIEW. Tác động kinh doanh.",
+    "how cxview delivers the transformation": "CXVIEW triển khai chuyển đổi như thế nào",
+    "cxview smart ai video analytics solution": "GIẢI PHÁP AI VIDEO ANALYTICS THÔNG MINH CXVIEW",
+    "the new era of physical edge ai": "Kỷ nguyên mới của AI biên vật lý",
+    "near-zero latency": "Độ trễ gần 0",
+    "data sovereignty": "Chủ quyền dữ liệu",
+    "cost efficiency": "Tối ưu chi phí",
+    "bandwidth savings": "Tiết kiệm băng thông",
 })
 
 
@@ -2989,31 +2989,31 @@ BAD_TO_GOOD = [
     ("\u200b", ""),
     ("\ufeff", ""),
     ("\u00ad", ""),
-    ("ï¬", "fi"),
-    ("ï¬‚", "fl"),
-    ("â€“", "-"),
-    ("â€”", "-"),
-    ("â€œ", '"'),
-    ("â€", '"'),
-    ("â€˜", "'"),
-    ("â€™", "'"),
-    ("minimum 24 thÃ¡ng", "tá»‘i thiá»ƒu 24 thÃ¡ng"),
-    ("minimum 24-thÃ¡ng", "tá»‘i thiá»ƒu 24 thÃ¡ng"),
-    ("CXVIEW mÃ´ hÃ¬nh AI", "mÃ´ hÃ¬nh AI cá»§a CXVIEW"),
-    ("CXVIEW AI mÃ´ hÃ¬nh", "mÃ´ hÃ¬nh AI cá»§a CXVIEW"),
-    ("mÃ¡y áº£nh", "camera"),
-    ("MÃ¡y áº£nh", "Camera"),
-    ("hÃ³a Ä‘Æ¡n", "thanh toÃ¡n"),
-    ("trang web", "Ä‘á»‹a Ä‘iá»ƒm"),
-    ("nhÃ³m site", "Ä‘á»™i ngÅ© táº¡i Ä‘á»‹a Ä‘iá»ƒm"),
-    ("site teams", "Ä‘á»™i ngÅ© táº¡i Ä‘á»‹a Ä‘iá»ƒm"),
-    ("thiáº¿t bá»‹ cáº¡nh", "thiáº¿t bá»‹ biÃªn"),
-    ("trÃ­ tuá»‡ Edge", "trÃ­ tuá»‡ biÃªn"),
-    ("Äáº¥u tranh", "Ä‘Ã¡nh nhau"),
-    ("Ä‘áº¥u tranh", "Ä‘Ã¡nh nhau"),
+    ("ﬁ", "fi"),
+    ("ﬂ", "fl"),
+    ("–", "-"),
+    ("—", "-"),
+    ("“", '"'),
+    ("”", '"'),
+    ("‘", "'"),
+    ("’", "'"),
+    ("minimum 24 tháng", "tối thiểu 24 tháng"),
+    ("minimum 24-tháng", "tối thiểu 24 tháng"),
+    ("CXVIEW mô hình AI", "mô hình AI của CXVIEW"),
+    ("CXVIEW AI mô hình", "mô hình AI của CXVIEW"),
+    ("máy ảnh", "camera"),
+    ("Máy ảnh", "Camera"),
+    ("hóa đơn", "thanh toán"),
+    ("trang web", "địa điểm"),
+    ("nhóm site", "đội ngũ tại địa điểm"),
+    ("site teams", "đội ngũ tại địa điểm"),
+    ("thiết bị cạnh", "thiết bị biên"),
+    ("trí tuệ Edge", "trí tuệ biên"),
+    ("Đấu tranh", "đánh nhau"),
+    ("đấu tranh", "đánh nhau"),
     ("leo climbing", "leo"),
-    ("váº­t thá»ƒ khÃ´ng cÃ³ ngÆ°á»i", "váº­t thá»ƒ bá» quÃªn"),
-    ("thao tÃºng camera", "can thiá»‡p camera"),
+    ("vật thể không có người", "vật thể bỏ quên"),
+    ("thao túng camera", "can thiệp camera"),
 ]
 
 
@@ -3028,8 +3028,8 @@ def sanitize_text_v9(text: str, original_text: str = "", role: str = "body") -> 
     for bad, good in BAD_TO_GOOD:
         t = t.replace(bad, good)
 
-    # Convert checkmark glyphs extracted as Ã¼ only when they behave like list markers.
-    t = re.sub(r"(^|\n|\s)[Ã¼âœ“]\s*", lambda m: m.group(1) + "âœ“ ", t)
+    # Convert checkmark glyphs extracted as ü only when they behave like list markers.
+    t = re.sub(r"(^|\n|\s)[ü✓]\s*", lambda m: m.group(1) + "✓ ", t)
 
     # Remove duplicated source-English suffixes accidentally attached by the model or merged blocks.
     src = re.sub(r"\s+", " ", original_text or "").strip()
@@ -3044,9 +3044,9 @@ def sanitize_text_v9(text: str, original_text: str = "", role: str = "body") -> 
         t = re.sub(rf"\s+{re.escape(tail)}\s*$", "", t, flags=re.I).strip()
 
     # Remove pure English label leftovers if a Vietnamese phrase is already present.
-    t = re.sub(r"GIáº¢I PHÃP\s+OUR\s+SOLUTIONS", "GIáº¢I PHÃP", t, flags=re.I)
-    t = re.sub(r"QUY TRÃŒNH\s+OUR\s+PROCESS", "QUY TRÃŒNH", t, flags=re.I)
-    t = re.sub(r"Ná»€N Táº¢NG\s*&\s*CÃ”NG NGHá»†\s+PLATFORM\s*&\s*TECHNOLOGY", "Ná»€N Táº¢NG & CÃ”NG NGHá»†", t, flags=re.I)
+    t = re.sub(r"GIẢI PHÁP\s+OUR\s+SOLUTIONS", "GIẢI PHÁP", t, flags=re.I)
+    t = re.sub(r"QUY TRÌNH\s+OUR\s+PROCESS", "QUY TRÌNH", t, flags=re.I)
+    t = re.sub(r"NỀN TẢNG\s*&\s*CÔNG NGHỆ\s+PLATFORM\s*&\s*TECHNOLOGY", "NỀN TẢNG & CÔNG NGHỆ", t, flags=re.I)
 
     # Stable spacing, preserving explicit newlines.
     lines = [re.sub(r"[ \t]+", " ", line).strip() for line in t.splitlines()]
@@ -3055,7 +3055,7 @@ def sanitize_text_v9(text: str, original_text: str = "", role: str = "body") -> 
 
     # Tiny labels should not end with sentence punctuation.
     if role in {"label", "title", "cta", "table", "table_cell", "header"}:
-        t = t.rstrip(" .ã€‚")
+        t = t.rstrip(" .。")
     return t
 
 
@@ -3322,16 +3322,16 @@ def compute_layout_v9(text: str, block: TextBlock, rect: fitz.Rect, font: fitz.F
 def ultra_compact_label(text: str) -> str:
     t = sanitize_text_v9(text)
     replacements = [
-        ("PhÃ¡t hiá»‡n ", ""),
-        ("BÃ¡o cÃ¡o ", ""),
-        ("GiÃ¡m sÃ¡t ", ""),
-        ("PhÃ¢n tÃ­ch ", ""),
-        ("Kiá»ƒm tra ", ""),
-        ("Nháº­n dáº¡ng ", ""),
-        ("tá»± Ä‘á»™ng", ""),
-        ("khÃ¡ch hÃ ng", ""),
-        ("thá»i gian ", ""),
-        ("sáº£n pháº©m", "SP"),
+        ("Phát hiện ", ""),
+        ("Báo cáo ", ""),
+        ("Giám sát ", ""),
+        ("Phân tích ", ""),
+        ("Kiểm tra ", ""),
+        ("Nhận dạng ", ""),
+        ("tự động", ""),
+        ("khách hàng", ""),
+        ("thời gian ", ""),
+        ("sản phẩm", "SP"),
         ("camera", "camera"),
     ]
     for a, b in replacements:
@@ -4329,15 +4329,15 @@ def draw_layout_v6(page: fitz.Page, layout: LayoutResult, block: TextBlock, reso
 
         draw_line = line
         leading_check = False
-        if draw_line.startswith("âœ“ "):
+        if draw_line.startswith("✓ "):
             leading_check = True
             draw_line = draw_line[2:].lstrip()
-        elif draw_line == "âœ“":
+        elif draw_line == "✓":
             leading_check = True
             draw_line = ""
 
-        full_for_measure = ("âœ“ " + draw_line) if leading_check else draw_line
-        measure_line = full_for_measure.replace("âœ“", "â€¢")
+        full_for_measure = ("✓ " + draw_line) if leading_check else draw_line
+        measure_line = full_for_measure.replace("✓", "•")
 
         if layout.align == "center":
             w = measure_font.text_length(measure_line, fontsize=fontsize)
@@ -4352,25 +4352,25 @@ def draw_layout_v6(page: fitz.Page, layout: LayoutResult, block: TextBlock, reso
             if symbol_file and symbol_font:
                 page.insert_text(
                     point=fitz.Point(x, baseline),
-                    text="âœ“",
+                    text="✓",
                     fontsize=fontsize,
                     fontname="FSymbolVN",
                     fontfile=symbol_file,
                     color=line_color,
                     overlay=True,
                 )
-                x += symbol_font.text_length("âœ“ ", fontsize=fontsize) + 1.0
+                x += symbol_font.text_length("✓ ", fontsize=fontsize) + 1.0
             else:
                 page.insert_text(
                     point=fitz.Point(x, baseline),
-                    text="â€¢",
+                    text="•",
                     fontsize=fontsize,
                     fontname=fontname,
                     fontfile=fontfile,
                     color=line_color,
                     overlay=True,
                 )
-                x += measure_font.text_length("â€¢ ", fontsize=fontsize) + 1.0
+                x += measure_font.text_length("• ", fontsize=fontsize) + 1.0
 
         if draw_line:
             page.insert_text(
@@ -4787,7 +4787,7 @@ def build_ocr_exclusion_rects_v12(
 
 
 def has_vietnamese_marks_v12(s: str) -> bool:
-    marks = set("ÄƒÃ¢Ä‘ÃªÃ´Æ¡Æ°Ä‚Ã‚ÄÃŠÃ”Æ Æ¯Ã¡Ã áº£Ã£áº¡áº¥áº§áº©áº«áº­áº¯áº±áº³áºµáº·Ã©Ã¨áº»áº½áº¹áº¿á»á»ƒá»…á»‡Ã­Ã¬á»‰Ä©á»‹Ã³Ã²á»Ãµá»á»‘á»“á»•á»—á»™á»›á»á»Ÿá»¡á»£ÃºÃ¹á»§Å©á»¥á»©á»«á»­á»¯á»±Ã½á»³á»·á»¹á»µ")
+    marks = set("ăâđêôơưĂÂĐÊÔƠƯáàảãạấầẩẫậắằẳẵặéèẻẽẹếềểễệíìỉĩịóòỏõọốồổỗộớờởỡợúùủũụứừửữựýỳỷỹỵ")
     return any(ch in marks for ch in s or "")
 
 
@@ -5042,7 +5042,7 @@ def apply_region_patch_map_v15(
         {
           "page": 4,                       # 1-based
           "bbox": [648,129,777,152.5],     # PDF points
-          "text": "Äá»˜ TRá»„ Gáº¦N 0",
+          "text": "ĐỘ TRỄ GẦN 0",
           "fill": "#733AA3",               # null means no cover
           "color": "#FFFFFF",
           "font_size": 7.5,
@@ -5135,10 +5135,10 @@ def apply_cxview_manual_patches_v13(
     patches = [
         # Page 4 feature buttons. Coords measured from the source PDF at 841.89 x 595.28 pt.
         # Full purple button rectangles include icon area; text is centered slightly right.
-        (3, (648, 129, 777, 152.5), "Äá»˜ TRá»„ Gáº¦N 0", (0.45, 0.23, 0.64), (1, 1, 1), 7.6, "bold"),
-        (3, (648, 156, 777, 179.5), "CHá»¦ QUYá»€N Dá»® LIá»†U", (0.45, 0.23, 0.64), (1, 1, 1), 7.0, "bold"),
-        (3, (648, 183, 777, 206.5), "Tá»I Æ¯U CHI PHÃ", (0.45, 0.23, 0.64), (1, 1, 1), 7.5, "bold"),
-        (3, (648, 210, 777, 233.5), "TIáº¾T KIá»†M BÄ‚NG THÃ”NG", (0.45, 0.23, 0.64), (1, 1, 1), 6.7, "bold"),
+        (3, (648, 129, 777, 152.5), "ĐỘ TRỄ GẦN 0", (0.45, 0.23, 0.64), (1, 1, 1), 7.6, "bold"),
+        (3, (648, 156, 777, 179.5), "CHỦ QUYỀN DỮ LIỆU", (0.45, 0.23, 0.64), (1, 1, 1), 7.0, "bold"),
+        (3, (648, 183, 777, 206.5), "TỐI ƯU CHI PHÍ", (0.45, 0.23, 0.64), (1, 1, 1), 7.5, "bold"),
+        (3, (648, 210, 777, 233.5), "TIẾT KIỆM BĂNG THÔNG", (0.45, 0.23, 0.64), (1, 1, 1), 6.7, "bold"),
     ]
 
     for page_index, box, label, fill, color, fontsize, weight in patches:
@@ -5212,7 +5212,7 @@ def should_keep_full_ocr_text_v16(text_value: str, min_chars: int = 2) -> bool:
     if not re.search(r"[A-Za-z0-9]", s):
         return False
     # Skip lone page-like artifacts.
-    if re.fullmatch(r"[\.\-_=:/\\|â€¢Â·]+", s):
+    if re.fullmatch(r"[\.\-_=:/\\|•·]+", s):
         return False
     return True
 
@@ -5521,7 +5521,7 @@ def translate_full_ocr_blocks_v16(
 
 
 
-# â”€â”€ Claude Vision OCR helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# ── Claude Vision OCR helpers ──────────────────────────────────────────────
 
 def _claude_vision_page_to_b64(page, dpi: int = 200) -> str:
     import base64
@@ -5569,25 +5569,7 @@ def _claude_vision_parse_blocks(raw_response, page, page_index, min_chars=2):
     text = _re.sub(r"\s*```$", "", text).strip()
     try:
         s, e = text.find("["), text.rfind("]")
-        json_str = text[s:e+1] if s >= 0 and e > s else text
-        try:
-            items = _json.loads(json_str)
-        except Exception:
-            # Response was truncated — repair by closing open structures
-            repaired = json_str.rstrip().rstrip(",")
-            # Close any open string
-            if repaired.count('"') % 2 == 1:
-                repaired += '"' 
-            # Close open objects and array
-            open_braces = repaired.count("{") - repaired.count("}")
-            repaired += "}" * max(0, open_braces)
-            repaired += "]"
-            try:
-                items = _json.loads(repaired)
-                print(f"      Claude Vision: JSON repaired ({len(items)} items)")
-            except Exception as ex2:
-                print(f"      Claude Vision JSON parse error: {ex2}")
-                return []
+        items = _json.loads(text[s:e+1]) if s >= 0 and e > s else _json.loads(text)
     except Exception as ex:
         print(f"      Claude Vision JSON parse error: {ex}")
         return []
@@ -5643,7 +5625,7 @@ def ocr_page_to_all_line_blocks_claude_vision_v16(page, page_index, api_key, bas
         px = (max(0,int(b["bbox"][0]*zoom)-2), max(0,int(b["bbox"][1]*zoom)-2),
               int(b["bbox"][2]*zoom)+2, int(b["bbox"][3]*zoom)+2)
         b["px_bbox"] = px
-        b["bg_color"] = sample_bg_color_v10(img, px)
+        b["bg_color"] = sample_bg_color_v17(img, px)
     print(f"        Claude Vision: {len(blocks)} blocks extracted")
     return img, zoom, blocks
 
@@ -5706,18 +5688,7 @@ def full_ocr_rebuild_pdf_v16(
             page_rect = src_page.rect
             print(f"      Full OCR page {page_index + 1}/{len(src)}")
 
-            if ocr_engine == "claude":
-                img, zoom, blocks = ocr_page_to_all_line_blocks_claude_vision_v16(
-                    page=src_page,
-                    page_index=page_index,
-                    api_key=claude_api_key,
-                    base_url=claude_base_url,
-                    model=claude_vision_model,
-                    dpi=dpi,
-                    min_chars=min_chars,
-                    anthropic_version=claude_version,
-                )
-            elif ocr_engine == "paddle":
+            if ocr_engine == "paddle":
                 img, zoom, blocks = ocr_page_to_all_line_blocks_paddle_v16(
                     page=src_page,
                     page_index=page_index,
@@ -6106,159 +6077,6 @@ def apply_v263_patch(
     return applied
 
 
-
-# ── Claude Vision Region Patch helpers ────────────────────────────────────
-
-def _cvr_render_region_b64(page, region, dpi=220):
-    import base64
-    zoom = dpi / 72.0
-    clip = fitz.Rect(max(0,region.x0),max(0,region.y0),
-                     min(page.rect.width,region.x1),min(page.rect.height,region.y1))
-    pix = page.get_pixmap(matrix=fitz.Matrix(zoom,zoom), clip=clip, alpha=False)
-    return base64.b64encode(pix.tobytes("png")).decode("utf-8"), zoom
-
-def _cvr_call_claude(b64_image, region, api_key, base_url, model,
-                     anthropic_version="2023-06-01", timeout=60):
-    prompt = ("Extract all visible text from this PDF region. "
-              "Return ONLY a JSON array: [{"text":"...","x0":0.0,"y0":0.0,"x1":1.0,"y1":1.0}] "
-              "where coords are fractions 0.0-1.0 of this image. Include button/badge text. Skip QR codes.")
-    body = {"model": model, "max_tokens": 2048,
-            "messages": [{"role": "user", "content": [
-                {"type": "image", "source": {"type": "base64", "media_type": "image/png", "data": b64_image}},
-                {"type": "text", "text": prompt}]}]}
-    url = base_url.rstrip("/") + "/v1/messages"
-    headers = {"x-api-key": api_key, "anthropic-version": anthropic_version,
-               "content-type": "application/json", "accept": "application/json"}
-    data = json.dumps(body, ensure_ascii=False).encode("utf-8")
-    req = urllib.request.Request(url, data=data, headers=headers, method="POST")
-    try:
-        with urllib.request.urlopen(req, timeout=timeout) as resp:
-            result = json.loads(resp.read().decode("utf-8"))
-    except Exception as e:
-        print(f"        Claude Vision error: {e}"); return []
-    raw = ""
-    for block in result.get("content", []):
-        if isinstance(block, dict) and block.get("type") == "text":
-            raw = str(block.get("text", "")); break
-    raw = raw.strip()
-    raw = re.sub(r"^```(?:json)?\s*", "", raw, flags=re.I)
-    raw = re.sub(r"\s*```$", "", raw).strip()
-    try:
-        s, e = raw.find("["), raw.rfind("]")
-        items = json.loads(raw[s:e+1]) if s>=0 and e>s else json.loads(raw)
-    except Exception as ex:
-        try:
-            rep = raw.rstrip().rstrip(",")
-            rep += "}" * max(0, rep.count("{")-rep.count("}")) + "]"
-            s = rep.find("[")
-            items = json.loads(rep[s:]) if s>=0 else []
-        except Exception:
-            print(f"        Claude Vision JSON error: {ex}"); return []
-    rw, rh = region.width, region.height
-    results = []
-    for item in items:
-        if not isinstance(item, dict): continue
-        text = re.sub(r"\s+", " ", str(item.get("text","") or "")).strip()
-        if not text or len(text) < 2: continue
-        try:
-            x0f=max(0.,min(1.,float(item.get("x0",0.)))); y0f=max(0.,min(1.,float(item.get("y0",0.))))
-            x1f=max(0.,min(1.,float(item.get("x1",1.)))); y1f=max(0.,min(1.,float(item.get("y1",1.))))
-        except: continue
-        if x1f<=x0f or y1f<=y0f: continue
-        results.append({"text": text, "bbox": (
-            region.x0+x0f*rw, region.y0+y0f*rh,
-            region.x0+x1f*rw, region.y0+y1f*rh)})
-    return results
-
-def _cvr_translate_blocks(blocks, translator, source_lang, target_lang, glossary, batch_size=20):
-    pending = []
-    for i, b in enumerate(blocks):
-        class _P:
-            def __init__(self, blk):
-                self.original_text=blk["text"]; self.role="label"
-                self.font_size=max(4.,(blk["bbox"][3]-blk["bbox"][1])*.72)
-                self.bbox=blk["bbox"]; self.lines=[type("L",(),{"text":blk["text"]})()]
-        ov = compact_override_for_block(_P(b), target_lang)
-        if ov: b["translated"] = sanitize_text_v9(ov, b["text"], "label")
-        else: pending.append((i, b))
-    for start in range(0, len(pending), batch_size):
-        batch = pending[start:start+batch_size]
-        items = [{"id": str(idx), "role": "label", "text": b["text"],
-                  "max_chars": 60, "max_lines": 3,
-                  "instruction": "Translate to target language. Keep brand names."}
-                 for idx, b in batch]
-        res = translator.translate_batch(items, source_lang, target_lang, glossary)
-        by_id = {x["id"]: x.get("translated","") for x in res}
-        for idx, b in batch:
-            b["translated"] = sanitize_text_v9(by_id.get(str(idx), b["text"]), b["text"], "label")
-    return blocks
-
-def apply_claude_vision_region_patch(
-    source_pdf, translated_pdf, output_pdf, image_region_map, translator,
-    source_lang="auto", target_lang="vi", glossary=None,
-    api_key="", base_url="https://api.anthropic.com", model="claude-haiku-4-5",
-    anthropic_version="2023-06-01", dpi=220,
-    font_regular=None, font_bold=None, font_title=None, batch_size=20, debug=False,
-):
-    import shutil as _sh
-    manual = _v263_load_region_map(image_region_map)
-    auto   = _v263_auto_image_rects(source_pdf, min_area=800.0)
-    all_r: Dict[int, List] = {}
-    for m in (auto, manual):
-        for pn, rects in m.items(): all_r.setdefault(pn,[]).extend(rects)
-    if not all_r:
-        print("      CV Region Patch: no regions"); return 0
-    pdf = fitz.open(translated_pdf)
-    reg  = _v263_first_existing(font_regular, "fonts/NotoSans-Regular.ttf")
-    bold = _v263_first_existing(font_bold, "fonts/NotoSans-Bold.ttf", reg)
-    total = 0
-    for page_index, page in enumerate(pdf):
-        pn = page_index + 1
-        regions = all_r.get(pn, [])
-        if not regions: continue
-        print(f"      CV Region page {pn}: {len(regions)} regions")
-        all_blocks = []
-        for region in regions:
-            if region.width < 20 or region.height < 10: continue
-            if debug: page.draw_rect(region, color=(0,.6,0), width=1., overlay=True)
-            b64, _ = _cvr_render_region_b64(page, region, dpi=dpi)
-            ext = _cvr_call_claude(b64, region, api_key, base_url, model, anthropic_version)
-            print(f"        [{region.x0:.0f},{region.y0:.0f}]: {len(ext)} blocks")
-            all_blocks.extend(ext)
-        if not all_blocks: continue
-        all_blocks = _cvr_translate_blocks(all_blocks, translator, source_lang, target_lang, glossary, batch_size)
-        for b in all_blocks:
-            src_t = b.get("text",""); vi_t = b.get("translated","")
-            if not vi_t or text_is_same(src_t, vi_t): continue
-            rect = fitz.Rect(*b["bbox"])
-            if rect.width<=2 or rect.height<=2: continue
-            bg = _v263_sample_bg(page, rect)
-            lum = _v263_luminance(bg); sat = max(bg)-min(bg)
-            page.draw_rect(rect, color=None, fill=bg, overlay=True)
-            color = (1.,1.,1.) if (lum<.50 or sat>.15) else (.06,.06,.10)
-            fontfile = bold or reg; fontname = "FCVRBold"
-            if not fontfile: fontname = "helv"
-            ht = max(1., rect.height); wt = max(1., rect.width)
-            fs = _estimate_font_size_v17(ht, vi_t, wt)
-            size = fs; min_s = max(3.5, fs*.55)
-            while size >= min_s:
-                try:
-                    rc = page.insert_textbox(rect, vi_t, fontsize=size, fontname=fontname,
-                                             fontfile=fontfile, color=color,
-                                             align=fitz.TEXT_ALIGN_CENTER, overlay=True)
-                    if rc >= 0: break
-                except: pass
-                size -= .2
-            total += 1
-    out_path = Path(output_pdf).resolve(); tr_path = Path(translated_pdf).resolve()
-    if tr_path == out_path:
-        tmp = str(out_path.parent/(out_path.stem+"_cvrpatch_tmp.pdf"))
-        pdf.save(tmp, garbage=4, deflate=True); pdf.close(); _sh.move(tmp, str(out_path))
-    else:
-        pdf.save(output_pdf, garbage=4, deflate=True); pdf.close()
-    print(f"      CV Region Patch: {total} patches → {output_pdf}")
-    return total
-
 def build_arg_parser_v6() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(description="Single-file V6 weight-aware PDF translator")
     p.add_argument("input_pdf")
@@ -6330,22 +6148,12 @@ def build_arg_parser_v6() -> argparse.ArgumentParser:
     p.add_argument("--patch-only-from", default=None, help="Skip OCR/translation; apply targeted manual patches to an existing rendered PDF")
     p.add_argument("--patch-map", default=None, help="Apply generic JSON region patch map; can be used with --patch-only-from")
 
-    # V26.3 inline patch â€” runs at the END of the pipeline automatically.
+    # V26.3 inline patch — runs at the END of the pipeline automatically.
     p.add_argument("--v263-patch-map", default=None,
                    help="V26.3 patch map JSON applied AFTER translation (no separate script needed)")
     p.add_argument("--v263-image-region-map", default=None,
                    help="V26.3 manual image/graphic region map JSON (auto-detect is always on)")
-    p.add_argument("--cv-region-patch", action="store_true",
-                   help="Use Claude Vision to read/translate text inside image regions")
-    p.add_argument("--cv-region-map", default=None,
-                   help="Image region map JSON for Claude Vision region patch")
-    p.add_argument("--cv-model", default="claude-haiku-4-5",
-                   help="Claude model for --cv-region-patch")
-    p.add_argument("--cv-dpi", type=int, default=220,
-                   help="DPI for region rendering in --cv-region-patch")
-    p.add_argument("--cv-debug", action="store_true",
-                   help="Draw green outlines around processed image regions")
-        p.add_argument("--v263-debug-regions", action="store_true",
+    p.add_argument("--v263-debug-regions", action="store_true",
                    help="Draw blue outlines on V26.3 image regions for debugging")
 
     # Full OCR rebuild: ignores PDF text layer and reconstructs pages from OCR.
@@ -6357,7 +6165,7 @@ def build_arg_parser_v6() -> argparse.ArgumentParser:
                    help="Claude model for --full-ocr-engine claude (default: claude-haiku-4-5)")
     p.add_argument("--claude-vision-dpi", type=int, default=200,
                    help="DPI for Claude Vision page rendering (default: 200)")
-    p.add_argument("--full-ocr-min-conf", type=float, default=40.0, help="Minimum OCR confidence for --full-ocr-rebuild")
+        p.add_argument("--full-ocr-min-conf", type=float, default=40.0, help="Minimum OCR confidence for --full-ocr-rebuild")
     return p
 
 
@@ -6808,28 +6616,7 @@ def main_v6(argv: Optional[List[str]] = None):
         print(f"{step} Render preview PNGs: {args.preview_dir}")
         render_pdf_pages(args.output_pdf if not args.ocr_output else args.ocr_output, args.preview_dir)
 
-    # Claude Vision Region Patch hook.
-    if getattr(args, "cv_region_patch", False):
-        _cv_out = args.output_pdf if not getattr(args,"ocr_output",None) else args.ocr_output
-        _cv_key = os.getenv("LLM_API_KEY","").strip()
-        _cv_url = os.getenv("LLM_BASE_URL","https://api.anthropic.com").strip().rstrip("/")
-        _cv_ver = os.getenv("ANTHROPIC_VERSION","2023-06-01").strip()
-        if not _cv_key:
-            print("WARNING: --cv-region-patch requires LLM_API_KEY — skipping")
-        else:
-            print(f"[CV Region Patch] model={getattr(args,'cv_model','claude-haiku-4-5')}")
-            apply_claude_vision_region_patch(
-                source_pdf=args.input_pdf, translated_pdf=_cv_out, output_pdf=_cv_out,
-                image_region_map=getattr(args,"cv_region_map",None), translator=translator,
-                source_lang=args.source, target_lang=args.target, glossary=glossary,
-                api_key=_cv_key, base_url=_cv_url,
-                model=getattr(args,"cv_model","claude-haiku-4-5"),
-                anthropic_version=_cv_ver,
-                dpi=getattr(args,"cv_dpi",220),
-                font_regular=args.font, font_bold=args.font_bold, font_title=args.font_title,
-                batch_size=args.batch_size, debug=getattr(args,"cv_debug",False),
-            )
-        # V26.3 inline region patch â€” runs after the full pipeline with no extra script.
+    # V26.3 inline region patch — runs after the full pipeline with no extra script.
     _v263_out = args.output_pdf if not getattr(args, "ocr_output", None) else args.ocr_output
     if getattr(args, "v263_patch_map", None) and Path(args.v263_patch_map).exists():
         print(f"[V26.3] Applying region patches from {args.v263_patch_map}")
@@ -6844,7 +6631,7 @@ def main_v6(argv: Optional[List[str]] = None):
             font_title=args.font_title,
             debug_regions=getattr(args, "v263_debug_regions", False),
         )
-        print(f"[V26.3] Applied {n_patches} patches â†’ {_v263_out}")
+        print(f"[V26.3] Applied {n_patches} patches → {_v263_out}")
 
     print(f"Done: {_v263_out}")
 
@@ -6856,19 +6643,19 @@ def main_v6(argv: Optional[List[str]] = None):
 # These are intentionally added late so they override earlier entries that kept
 # product phrases in English. Glossary can be added later for preferred terms.
 EXACT_TRANSLATION_MEMORY_VI.update({
-    "cxview gpt box": "Há»™p CXVIEW GPT",
-    "& ai video analytics": "& PhÃ¢n tÃ­ch Video AI",
-    "cxview gpt box & ai video analytics": "Há»™p CXVIEW GPT & PhÃ¢n tÃ­ch Video AI",
-    "client challenges. cxview solutions. business impacts.": "ThÃ¡ch thá»©c KH. Giáº£i phÃ¡p CXVIEW. TÃ¡c Ä‘á»™ng KD.",
-    "how cxview delivers the transformation": "CXVIEW triá»ƒn khai chuyá»ƒn Ä‘á»•i",
+    "cxview gpt box": "Hộp CXVIEW GPT",
+    "& ai video analytics": "& Phân tích Video AI",
+    "cxview gpt box & ai video analytics": "Hộp CXVIEW GPT & Phân tích Video AI",
+    "client challenges. cxview solutions. business impacts.": "Thách thức KH. Giải pháp CXVIEW. Tác động KD.",
+    "how cxview delivers the transformation": "CXVIEW triển khai chuyển đổi",
 })
 
 COMPACT_TRANSLATION_MEMORY_VI.update({
-    "cxview gpt box": "Há»™p CXVIEW GPT",
-    "& ai video analytics": "& PhÃ¢n tÃ­ch Video AI",
-    "cxview gpt box & ai video analytics": "Há»™p CXVIEW GPT & PhÃ¢n tÃ­ch Video AI",
-    "client challenges. cxview solutions. business impacts.": "ThÃ¡ch thá»©c KH. Giáº£i phÃ¡p CXVIEW. TÃ¡c Ä‘á»™ng KD.",
-    "how cxview delivers the transformation": "CXVIEW triá»ƒn khai chuyá»ƒn Ä‘á»•i",
+    "cxview gpt box": "Hộp CXVIEW GPT",
+    "& ai video analytics": "& Phân tích Video AI",
+    "cxview gpt box & ai video analytics": "Hộp CXVIEW GPT & Phân tích Video AI",
+    "client challenges. cxview solutions. business impacts.": "Thách thức KH. Giải pháp CXVIEW. Tác động KD.",
+    "how cxview delivers the transformation": "CXVIEW triển khai chuyển đổi",
 })
 
 
@@ -6878,13 +6665,13 @@ COMPACT_TRANSLATION_MEMORY_VI.update({
 # ============================================================
 # These are late overrides so they win over previous memories.
 EXACT_TRANSLATION_MEMORY_VI.update({
-    "we promise results within 30 days and roi in 60 days.": "ChÃºng tÃ´i cam káº¿t mang láº¡i káº¿t quáº£\ntrong 30 ngÃ y vÃ  ROI trong 60 ngÃ y.",
-    "cxview delivers measurable business impact on an aggressive timeline that respects your operational urgency, going beyond mere software deployment.": "CXVIEW mang láº¡i tÃ¡c Ä‘á»™ng kinh doanh cÃ³ thá»ƒ Ä‘o lÆ°á»ng\nvá»›i tiáº¿n Ä‘á»™ triá»ƒn khai nhanh, phÃ¹ há»£p nhu cáº§u váº­n hÃ nh\ncáº¥p thiáº¿t cá»§a báº¡n, vÆ°á»£t xa viá»‡c chá»‰ triá»ƒn khai pháº§n má»m.",
+    "we promise results within 30 days and roi in 60 days.": "Chúng tôi cam kết mang lại kết quả\ntrong 30 ngày và ROI trong 60 ngày.",
+    "cxview delivers measurable business impact on an aggressive timeline that respects your operational urgency, going beyond mere software deployment.": "CXVIEW mang lại tác động kinh doanh có thể đo lường\nvới tiến độ triển khai nhanh, phù hợp nhu cầu vận hành\ncấp thiết của bạn, vượt xa việc chỉ triển khai phần mềm.",
 })
 
 COMPACT_TRANSLATION_MEMORY_VI.update({
-    "we promise results within 30 days and roi in 60 days.": "ChÃºng tÃ´i cam káº¿t mang láº¡i káº¿t quáº£\ntrong 30 ngÃ y vÃ  ROI trong 60 ngÃ y.",
-    "cxview delivers measurable business impact on an aggressive timeline that respects your operational urgency, going beyond mere software deployment.": "CXVIEW mang láº¡i tÃ¡c Ä‘á»™ng kinh doanh cÃ³ thá»ƒ Ä‘o lÆ°á»ng\nvá»›i tiáº¿n Ä‘á»™ triá»ƒn khai nhanh, phÃ¹ há»£p nhu cáº§u váº­n hÃ nh\ncáº¥p thiáº¿t cá»§a báº¡n, vÆ°á»£t xa viá»‡c chá»‰ triá»ƒn khai pháº§n má»m.",
+    "we promise results within 30 days and roi in 60 days.": "Chúng tôi cam kết mang lại kết quả\ntrong 30 ngày và ROI trong 60 ngày.",
+    "cxview delivers measurable business impact on an aggressive timeline that respects your operational urgency, going beyond mere software deployment.": "CXVIEW mang lại tác động kinh doanh có thể đo lường\nvới tiến độ triển khai nhanh, phù hợp nhu cầu vận hành\ncấp thiết của bạn, vượt xa việc chỉ triển khai phần mềm.",
 })
 
 
@@ -6987,7 +6774,7 @@ def looks_like_remaining_english_v10(text: str, min_chars: int = 3) -> bool:
         return False
 
     # Skip mostly Vietnamese text.
-    vietnamese_marks = set("ÄƒÃ¢Ä‘ÃªÃ´Æ¡Æ°Ä‚Ã‚ÄÃŠÃ”Æ Æ¯Ã¡Ã áº£Ã£áº¡áº¥áº§áº©áº«áº­áº¯áº±áº³áºµáº·Ã©Ã¨áº»áº½áº¹áº¿á»á»ƒá»…á»‡Ã­Ã¬á»‰Ä©á»‹Ã³Ã²á»Ãµá»á»‘á»“á»•á»—á»™á»›á»á»Ÿá»¡á»£ÃºÃ¹á»§Å©á»¥á»©á»«á»­á»¯á»±Ã½á»³á»·á»¹á»µ")
+    vietnamese_marks = set("ăâđêôơưĂÂĐÊÔƠƯáàảãạấầẩẫậắằẳẵặéèẻẽẹếềểễệíìỉĩịóòỏõọốồổỗộớờởỡợúùủũụứừửữựýỳỷỹỵ")
     if any(ch in vietnamese_marks for ch in s):
         # Still allow if it also has a lot of English uppercase product text,
         # but by default OCR should target English leftovers.
@@ -7886,5 +7673,3 @@ render_translated_pdf = render_translated_pdf_v6
 
 if __name__ == "__main__":
     main_v6()
-
-
