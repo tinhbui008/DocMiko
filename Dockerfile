@@ -25,9 +25,15 @@ ENV PYTHONUNBUFFERED=1 \
 WORKDIR /app
 
 # --- Python deps first (better layer caching) ---
+# build-essential is needed to compile C extensions (e.g. stringzilla, a
+# transitive dep of paddleocr); it is purged afterwards to keep the image lean.
 COPY requirements-docker.txt /app/requirements-docker.txt
-RUN pip install --upgrade pip && \
-    pip install -r /app/requirements-docker.txt
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends build-essential \
+    && pip install --upgrade pip \
+    && pip install -r /app/requirements-docker.txt \
+    && apt-get purge -y --auto-remove build-essential \
+    && rm -rf /var/lib/apt/lists/*
 
 # --- Bake OCR models into the image (build needs internet, runtime does not) ---
 COPY warmup_ocr.py /app/warmup_ocr.py
