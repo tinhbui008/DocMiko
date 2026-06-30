@@ -6,10 +6,12 @@
 #
 # Usage (run from the cloned repo folder):
 #   docker compose build
-#   cp <your.pdf> /root/pdf-translator/input/input.pdf
 #   docker compose run --rm translator
-#   # or override file names:
-#   docker compose run --rm translator /app/input/myfile.pdf /app/output/done.pdf
+#   # -> output at /root/pdf-translator/output/output_final_v28_2_rulefix.pdf
+#
+# The v28.2 pipeline is CXVIEW-specific; the source deck and the
+# pre-translated base PDF are baked into the image. To run a different
+# deck you must supply matching region maps (see README_v28_2_RULEFIX.md).
 # ============================================================
 services:
   translator:

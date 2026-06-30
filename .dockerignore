@@ -11,6 +11,9 @@ __pycache__
 
 # Large / generated artifacts not needed to build
 *.pdf
+# ...but the v28.2 pipeline needs these two fixtures baked into the image:
+!CXVIEW-SMART-AI-VIDEO-ANALYTICS-SOLUTION-PRICING.pdf
+!ocr_report_dummy.pdf
 .translation_cache.jsonl
 ocr_debug_*/
 extracted_images/
