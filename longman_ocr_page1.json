@@ -1,0 +1,158 @@
+{
+  "version": "v28_1_4_ocr_image_region_report",
+  "input_pdf": "LONGMAN BFFB Renewable.pdf",
+  "image_region_map": "longman_image_regions_page1.json",
+  "generated_at_utc": "2026-06-30T07:47:23.360436+00:00",
+  "engine": "rapidocr",
+  "engine_requested": "rapidocr",
+  "lang": "en",
+  "dpi": 180,
+  "min_confidence": 0.05,
+  "pages_scanned": [
+    1
+  ],
+  "regions_total": 1,
+  "items_total": 7,
+  "items": [
+    {
+      "page": 1,
+      "region_id": "p1_region_1",
+      "text": "LONGMAN GROUP",
+      "normalized_text": "LONGMAN GROUP",
+      "bbox": [
+        797.42,
+        41.46,
+        870.0,
+        66.54
+      ],
+      "confidence": 0.99,
+      "variant": "gray_contrast",
+      "detection_count": 7,
+      "source": "rapidocr_v28_1_4",
+      "english_like": true,
+      "review_status": "candidate"
+    },
+    {
+      "page": 1,
+      "region_id": "p1_region_1",
+      "text": "BFFB",
+      "normalized_text": "BFFB",
+      "bbox": [
+        79.35,
+        57.86,
+        208.06,
+        104.14
+      ],
+      "confidence": 0.99,
+      "variant": "rgb",
+      "detection_count": 7,
+      "source": "rapidocr_v28_1_4",
+      "english_like": true,
+      "review_status": "candidate"
+    },
+    {
+      "page": 1,
+      "region_id": "p1_region_1",
+      "text": "Create Social Wealth Bring Happiness to Humanity",
+      "normalized_text": "Create Social Wealth Bring Happiness to Humanity",
+      "bbox": [
+        246.77,
+        80.04,
+        625.65,
+        105.11
+      ],
+      "confidence": 0.99,
+      "variant": "gray_contrast",
+      "detection_count": 7,
+      "source": "rapidocr_v28_1_4",
+      "english_like": true,
+      "review_status": "candidate"
+    },
+    {
+      "page": 1,
+      "region_id": "p1_region_1",
+      "text": "BOFA HOLDING GROUP",
+      "normalized_text": "BOFA HOLDING GROUP",
+      "bbox": [
+        310.65,
+        210.7,
+        677.9,
+        243.96
+      ],
+      "confidence": 0.99,
+      "variant": "adaptive_thresh_inv",
+      "detection_count": 7,
+      "source": "rapidocr_v28_1_4",
+      "english_like": true,
+      "review_status": "candidate"
+    },
+    {
+      "page": 1,
+      "region_id": "p1_region_1",
+      "text": "INCORPORATION WITH",
+      "normalized_text": "INCORPORATION WITH",
+      "bbox": [
+        406.45,
+        247.82,
+        581.13,
+        266.14
+      ],
+      "confidence": 0.99,
+      "variant": "rgb",
+      "detection_count": 7,
+      "source": "rapidocr_v28_1_4",
+      "english_like": true,
+      "review_status": "candidate"
+    },
+    {
+      "page": 1,
+      "region_id": "p1_region_1",
+      "text": "LONGMAN GROUP",
+      "normalized_text": "LONGMAN GROUP",
+      "bbox": [
+        347.42,
+        269.04,
+        641.13,
+        302.79
+      ],
+      "confidence": 0.99,
+      "variant": "rgb",
+      "detection_count": 7,
+      "source": "rapidocr_v28_1_4",
+      "english_like": true,
+      "review_status": "candidate"
+    },
+    {
+      "page": 1,
+      "region_id": "p1_region_1",
+      "text": "MES",
+      "normalized_text": "MES",
+      "bbox": [
+        378.39,
+        410.79,
+        567.1,
+        474.43
+      ],
+      "confidence": 0.261,
+      "variant": "adaptive_thresh_inv",
+      "detection_count": 1,
+      "source": "rapidocr_v28_1_4",
+      "english_like": true,
+      "review_status": "candidate"
+    }
+  ],
+  "debug": {
+    "p1_p1_region_1": {
+      "region_bbox": [
+        0.0,
+        0.0,
+        960.0,
+        540.0
+      ],
+      "raw_candidates": 43,
+      "merged_candidates": 7,
+      "debug_image": "p01_p1_region_1_debug.png"
+    }
+  },
+  "note": "OCR was restricted to approved image/graphic regions. Boxes are in PDF point coordinates and are planner-compatible."
+}

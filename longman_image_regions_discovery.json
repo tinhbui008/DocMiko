@@ -1,0 +1,182 @@
+{
+  "version": "longman_discovery_regions_v1",
+  "note": "Temporary full-page OCR discovery regions for LONGMAN test.",
+  "regions": [
+    {
+      "page": 1,
+      "name": "p1_fullpage_discovery",
+      "bbox": [
+        0,
+        0,
+        960.0,
+        540.0
+      ],
+      "reason": "Temporary full-page OCR discovery region. Refine before final render."
+    },
+    {
+      "page": 2,
+      "name": "p2_fullpage_discovery",
+      "bbox": [
+        0,
+        0,
+        960.0,
+        540.0
+      ],
+      "reason": "Temporary full-page OCR discovery region. Refine before final render."
+    },
+    {
+      "page": 3,
+      "name": "p3_fullpage_discovery",
+      "bbox": [
+        0,
+        0,
+        960.0,
+        540.0
+      ],
+      "reason": "Temporary full-page OCR discovery region. Refine before final render."
+    },
+    {
+      "page": 4,
+      "name": "p4_fullpage_discovery",
+      "bbox": [
+        0,
+        0,
+        960.0,
+        540.0
+      ],
+      "reason": "Temporary full-page OCR discovery region. Refine before final render."
+    },
+    {
+      "page": 5,
+      "name": "p5_fullpage_discovery",
+      "bbox": [
+        0,
+        0,
+        960.0,
+        540.0
+      ],
+      "reason": "Temporary full-page OCR discovery region. Refine before final render."
+    },
+    {
+      "page": 6,
+      "name": "p6_fullpage_discovery",
+      "bbox": [
+        0,
+        0,
+        960.0,
+        540.0
+      ],
+      "reason": "Temporary full-page OCR discovery region. Refine before final render."
+    },
+    {
+      "page": 7,
+      "name": "p7_fullpage_discovery",
+      "bbox": [
+        0,
+        0,
+        960.0,
+        540.0
+      ],
+      "reason": "Temporary full-page OCR discovery region. Refine before final render."
+    },
+    {
+      "page": 8,
+      "name": "p8_fullpage_discovery",
+      "bbox": [
+        0,
+        0,
+        960.0,
+        540.0
+      ],
+      "reason": "Temporary full-page OCR discovery region. Refine before final render."
+    },
+    {
+      "page": 9,
+      "name": "p9_fullpage_discovery",
+      "bbox": [
+        0,
+        0,
+        960.0,
+        540.0
+      ],
+      "reason": "Temporary full-page OCR discovery region. Refine before final render."
+    },
+    {
+      "page": 10,
+      "name": "p10_fullpage_discovery",
+      "bbox": [
+        0,
+        0,
+        960.0,
+        540.0
+      ],
+      "reason": "Temporary full-page OCR discovery region. Refine before final render."
+    },
+    {
+      "page": 11,
+      "name": "p11_fullpage_discovery",
+      "bbox": [
+        0,
+        0,
+        960.0,
+        540.0
+      ],
+      "reason": "Temporary full-page OCR discovery region. Refine before final render."
+    },
+    {
+      "page": 12,
+      "name": "p12_fullpage_discovery",
+      "bbox": [
+        0,
+        0,
+        960.0,
+        540.0
+      ],
+      "reason": "Temporary full-page OCR discovery region. Refine before final render."
+    },
+    {
+      "page": 13,
+      "name": "p13_fullpage_discovery",
+      "bbox": [
+        0,
+        0,
+        960.0,
+        540.0
+      ],
+      "reason": "Temporary full-page OCR discovery region. Refine before final render."
+    },
+    {
+      "page": 14,
+      "name": "p14_fullpage_discovery",
+      "bbox": [
+        0,
+        0,
+        960.0,
+        540.0
+      ],
+      "reason": "Temporary full-page OCR discovery region. Refine before final render."
+    },
+    {
+      "page": 15,
+      "name": "p15_fullpage_discovery",
+      "bbox": [
+        0,
+        0,
+        960.0,
+        540.0
+      ],
+      "reason": "Temporary full-page OCR discovery region. Refine before final render."
+    },
+    {
+      "page": 16,
+      "name": "p16_fullpage_discovery",
+      "bbox": [
+        0,
+        0,
+        960.0,
+        540.0
+      ],
+      "reason": "Temporary full-page OCR discovery region. Refine before final render."
+    }
+  ]
+}
