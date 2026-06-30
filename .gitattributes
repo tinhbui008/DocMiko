@@ -1,0 +1,3 @@
+# Force LF for shell scripts so they run correctly inside Linux containers
+*.sh text eol=lf
+run_pipeline.sh text eol=lf

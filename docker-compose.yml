@@ -1,0 +1,20 @@
+# ============================================================
+# Mikotech PDF Translator - CLI batch runner
+# Usage:
+#   docker compose build
+#   # put your PDF at ./input/input.pdf, then:
+#   docker compose run --rm translator
+#   # or override files:
+#   docker compose run --rm translator /app/input/myfile.pdf /app/output/done.pdf
+# ============================================================
+services:
+  translator:
+    build: .
+    image: mikotech-pdf-translator:latest
+    env_file:
+      - .env                      # LLM_API_KEY, LLM_BASE_URL, LLM_MODEL, ...
+    volumes:
+      - ./input:/app/input        # drop source PDFs here
+      - ./output:/app/output      # translated PDFs appear here
+    # CLI batch job: run once and exit
+    restart: "no"

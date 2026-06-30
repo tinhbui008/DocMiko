@@ -1,0 +1,26 @@
+# Keep the build context small & secrets out of the image
+.git
+venv
+__pycache__
+**/__pycache__
+*.pyc
+*.pyo
+
+# Secrets (inject via --env-file / compose env_file at runtime instead)
+.env
+
+# Large / generated artifacts not needed to build
+*.pdf
+.translation_cache.jsonl
+ocr_debug_*/
+extracted_images/
+extracted_fonts/
+ocr_report_crops/
+pdf_test_result/
+*_report.json
+
+# OS / IDE
+.vscode
+.idea
+.DS_Store
+Thumbs.db

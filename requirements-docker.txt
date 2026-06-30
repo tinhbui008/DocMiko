@@ -1,0 +1,31 @@
+# ============================================================
+# Mikotech PDF Translator - full dependency lock for Docker
+# Versions pinned to the working local venv (pip freeze).
+# NOTE: the old requirements.txt was missing PyMuPDF/rapidocr/
+# onnxruntime/pytesseract/requests/fonttools which the code imports.
+# ============================================================
+
+# --- Core PDF engines ---
+PyMuPDF==1.27.2.3
+pypdfium2==5.10.1
+
+# --- Imaging ---
+Pillow==12.2.0
+numpy==1.26.4
+# headless build: no GUI / X11 libs needed on a server
+opencv-python-headless==4.11.0.86
+
+# --- OCR (image/graphic regions) ---
+rapidocr==3.9.0
+onnxruntime==1.27.0
+paddleocr==2.10.0
+paddlepaddle==3.2.0
+pytesseract==0.3.13
+
+# --- Fonts ---
+fonttools==4.63.0
+
+# --- LLM / translation ---
+openai==2.43.0
+requests==2.34.2
+python-dotenv==1.0.1
