@@ -3,24 +3,40 @@
 # Server data dirs (already created):
 #   /root/pdf-translator/input    -> source PDFs go here
 #   /root/pdf-translator/output   -> translated PDFs come out here
+#   /root/pdf-translator/cache    -> persistent LLM translation cache
 #
-# Usage (run from the cloned repo folder):
+# Two jobs:
+#   translator      -> v28.2 region pipeline (NO API calls, free)
+#   text-translate  -> v16 text-layer translation (uses API + cache)
+#
+# Usage:
 #   docker compose build
-#   docker compose run --rm translator
-#   # -> output at /root/pdf-translator/output/output_final_v28_2_rulefix.pdf
+#   docker compose run --rm translator        # v28.2, output_final_v28_2_rulefix.pdf
+#   docker compose run --rm text-translate     # text-layer translate input.pdf
 #
 # The v28.2 pipeline is CXVIEW-specific; the source deck and the
 # pre-translated base PDF are baked into the image. To run a different
 # deck you must supply matching region maps (see README_v28_2_RULEFIX.md).
 # ============================================================
+
+# Shared config reused by both services (YAML anchor)
+x-common: &common
+  build: .
+  image: mikotech-pdf-translator:latest
+  env_file:
+    - .env                                       # LLM_API_KEY, LLM_BASE_URL, LLM_MODEL, ...
+  volumes:
+    - /root/pdf-translator/input:/app/input      # drop source PDFs here
+    - /root/pdf-translator/output:/app/output    # translated PDFs appear here
+    - /root/pdf-translator/cache:/app/cache      # persistent translation cache (reused -> saves API credit)
+  restart: "no"
+
 services:
+  # v28.2 region patch pipeline - does NOT call the LLM API
   translator:
-    build: .
-    image: mikotech-pdf-translator:latest
-    env_file:
-      - .env                                   # LLM_API_KEY, LLM_BASE_URL, LLM_MODEL, ...
-    volumes:
-      - /root/pdf-translator/input:/app/input    # drop source PDFs here
-      - /root/pdf-translator/output:/app/output  # translated PDFs appear here
-    # CLI batch job: run once and exit
-    restart: "no"
+    <<: *common
+
+  # v16 text-layer translation - calls the LLM API, reuses /app/cache
+  text-translate:
+    <<: *common
+    entrypoint: ["/bin/bash", "run_text_translate.sh"]

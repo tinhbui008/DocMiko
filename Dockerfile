@@ -42,8 +42,8 @@ RUN python /app/warmup_ocr.py || echo "WARN: OCR warmup skipped (models will dow
 # --- Application source ---
 COPY . /app
 
-# Normalize shell script line endings (in case it was committed with CRLF)
-RUN sed -i 's/\r$//' /app/run_pipeline.sh && chmod +x /app/run_pipeline.sh
+# Normalize shell script line endings (in case they were committed with CRLF)
+RUN for s in /app/*.sh; do sed -i 's/\r$//' "$s"; chmod +x "$s"; done
 
 # Input/output mount points
 RUN mkdir -p /app/input /app/output
