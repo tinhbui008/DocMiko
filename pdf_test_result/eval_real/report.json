@@ -1,0 +1,105 @@
+{
+  "averages": {
+    "pages": 12,
+    "ssim_global_mean": 0.9552,
+    "ssim_background_mean": 0.9984
+  },
+  "pages": [
+    {
+      "page_index": 0,
+      "page_type": "text_layer",
+      "ssim_global": 0.9439,
+      "ssim_background": 0.9975,
+      "text_box_count": 1,
+      "montage_path": "pdf_test_result\\eval_real\\page_000.png"
+    },
+    {
+      "page_index": 1,
+      "page_type": "text_layer",
+      "ssim_global": 0.9616,
+      "ssim_background": 0.9994,
+      "text_box_count": 1,
+      "montage_path": "pdf_test_result\\eval_real\\page_001.png"
+    },
+    {
+      "page_index": 2,
+      "page_type": "text_layer",
+      "ssim_global": 0.9488,
+      "ssim_background": 0.9991,
+      "text_box_count": 1,
+      "montage_path": "pdf_test_result\\eval_real\\page_002.png"
+    },
+    {
+      "page_index": 3,
+      "page_type": "text_layer",
+      "ssim_global": 0.9519,
+      "ssim_background": 0.9916,
+      "text_box_count": 1,
+      "montage_path": "pdf_test_result\\eval_real\\page_003.png"
+    },
+    {
+      "page_index": 4,
+      "page_type": "text_layer",
+      "ssim_global": 0.9472,
+      "ssim_background": 0.9988,
+      "text_box_count": 1,
+      "montage_path": "pdf_test_result\\eval_real\\page_004.png"
+    },
+    {
+      "page_index": 5,
+      "page_type": "text_layer",
+      "ssim_global": 0.9546,
+      "ssim_background": 0.9992,
+      "text_box_count": 1,
+      "montage_path": "pdf_test_result\\eval_real\\page_005.png"
+    },
+    {
+      "page_index": 6,
+      "page_type": "text_layer",
+      "ssim_global": 0.9698,
+      "ssim_background": 0.9996,
+      "text_box_count": 1,
+      "montage_path": "pdf_test_result\\eval_real\\page_006.png"
+    },
+    {
+      "page_index": 7,
+      "page_type": "text_layer",
+      "ssim_global": 0.9549,
+      "ssim_background": 0.9998,
+      "text_box_count": 1,
+      "montage_path": "pdf_test_result\\eval_real\\page_007.png"
+    },
+    {
+      "page_index": 8,
+      "page_type": "text_layer",
+      "ssim_global": 0.9548,
+      "ssim_background": 0.9993,
+      "text_box_count": 1,
+      "montage_path": "pdf_test_result\\eval_real\\page_008.png"
+    },
+    {
+      "page_index": 9,
+      "page_type": "text_layer",
+      "ssim_global": 0.9644,
+      "ssim_background": 0.9996,
+      "text_box_count": 1,
+      "montage_path": "pdf_test_result\\eval_real\\page_009.png"
+    },
+    {
+      "page_index": 10,
+      "page_type": "text_layer",
+      "ssim_global": 0.9524,
+      "ssim_background": 0.999,
+      "text_box_count": 1,
+      "montage_path": "pdf_test_result\\eval_real\\page_010.png"
+    },
+    {
+      "page_index": 11,
+      "page_type": "text_layer",
+      "ssim_global": 0.9578,
+      "ssim_background": 0.9978,
+      "text_box_count": 1,
+      "montage_path": "pdf_test_result\\eval_real\\page_011.png"
+    }
+  ]
+}

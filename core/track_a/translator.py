@@ -1,5 +1,6 @@
 """
-Translate text spans via Claude API with persistent JSONL cache.
+Translate text spans via the configured LLM provider with a persistent
+JSONL cache. Provider (Anthropic / Ollama) is chosen in core.llm / core.config.
 
 Cache key: hash(source_text + target_lang)
 """
@@ -8,16 +9,16 @@ import hashlib
 import json
 from pathlib import Path
 
-import anthropic
-
-from core.config import get_api_key, get_model
+from core.config import get_model
+from core.llm import translate_batch
 
 _DEFAULT_CACHE_PATH = Path(__file__).parent.parent.parent / "cache" / "translations.jsonl"
-_MODEL = get_model("claude-haiku-4-5-20251001")
 
 
 def _cache_key(text: str, target_lang: str) -> str:
-    return hashlib.sha256(f"{text}||{target_lang}".encode()).hexdigest()[:16]
+    # Include the model so Claude and Ollama translations don't collide in the
+    # shared cache (different providers -> different entries for the same text).
+    return hashlib.sha256(f"{text}||{target_lang}||{get_model()}".encode()).hexdigest()[:16]
 
 
 def load_cache(cache_path: Path = _DEFAULT_CACHE_PATH) -> dict:
@@ -43,15 +44,22 @@ def translate_spans(
     target_lang: str = "Vietnamese",
     cache_path: Path = _DEFAULT_CACHE_PATH,
     batch_size: int = 50,
+    chunk_size: int = 8,
 ) -> list[dict]:
     """
     Translate a list of span dicts in-place (adds 'translation' field).
     Returns the same list with 'translation' populated.
+
+    `chunk_size` is forwarded to translate_batch: on dense pages a single large
+    request makes local models drift the line numbering, dropping many lines
+    back to the source language. Small chunks keep alignment.
+
+    A translation equal to the source is NOT cached — it usually means a
+    fall-back (the model failed to align that line), so it should be retried on
+    the next run rather than frozen as "English" in the cache.
     """
-    client = anthropic.Anthropic(api_key=get_api_key())
     cache = load_cache(cache_path)
 
-    # Split into batches to avoid hitting token limits
     for i in range(0, len(spans), batch_size):
         batch = spans[i : i + batch_size]
         to_translate = []
@@ -65,29 +73,13 @@ def translate_spans(
         if not to_translate:
             continue
 
-        # Build prompt: translate all texts in one API call
         texts = [s["text"] for s, _ in to_translate]
-        prompt = (
-            f"Translate each line below to {target_lang}. "
-            "Return ONLY a JSON array of translated strings in the same order. "
-            "Preserve formatting (whitespace, punctuation). Do not add explanations.\n\n"
-            + "\n".join(f"{j+1}. {t}" for j, t in enumerate(texts))
-        )
-
-        message = client.messages.create(
-            model=_MODEL,
-            max_tokens=4096,
-            messages=[{"role": "user", "content": prompt}],
-        )
-        raw = message.content[0].text.strip()
-
-        # Parse JSON array response
-        start = raw.find("[")
-        end = raw.rfind("]") + 1
-        translations = json.loads(raw[start:end])
+        translations = translate_batch(texts, target_lang, chunk_size=chunk_size)
 
         for (span, key), translation in zip(to_translate, translations):
             span["translation"] = translation
-            save_to_cache(key, translation, cache_path)
+            if translation != span["text"]:  # don't cache fall-backs
+                cache[key] = translation
+                save_to_cache(key, translation, cache_path)
 
     return spans

@@ -1,8 +1,17 @@
-pypdfium2==4.30.0
-paddlepaddle==2.6.2
-paddleocr==2.9.1
-Pillow==10.4.0
-opencv-python==4.10.0.84
-numpy==1.26.4
-openai==1.54.0
+# --- core engine (router + Track A/B pipeline) ---
+PyMuPDF==1.24.10           # fitz: PDF read/write, rasterize, redact
+openai==1.54.0             # OpenAI-compatible client -> local Ollama (default provider)
+rapidocr_onnxruntime==1.4.4 # precise Track B text detection (ONNX; erase mask + placement)
+wordninja==2.0.0           # repair space-less OCR runs before translating (Track B)
+opencv-python==4.10.0.84   # cv2.inpaint (telea) background reconstruction
+Pillow==10.4.0             # image compose for Track B
+numpy==1.26.4              # inpainting mask/sampling
 python-dotenv==1.0.1
+
+# --- optional: Claude backend (only if LLM_PROVIDER=anthropic) ---
+# anthropic==0.115.0   # needs httpx>=0.28
+
+# --- legacy experiments (per-deck CXVIEW/LONGMAN) ---
+pypdfium2==4.30.0
+# paddlepaddle==2.6.2   # inference unreliable on Windows -> replaced by rapidocr_onnxruntime
+# paddleocr==2.9.1

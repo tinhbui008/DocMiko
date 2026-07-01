@@ -1,0 +1,41 @@
+{
+  "averages": {
+    "pages": 4,
+    "ssim_global_mean": 0.7568,
+    "ssim_background_mean": 0.9942
+  },
+  "pages": [
+    {
+      "page_index": 0,
+      "page_type": "text_layer",
+      "ssim_global": 0.877,
+      "ssim_background": 0.9979,
+      "text_box_count": 1,
+      "montage_path": "pdf_test_result\\eval_ss\\page_000.png"
+    },
+    {
+      "page_index": 1,
+      "page_type": "text_layer",
+      "ssim_global": 0.7051,
+      "ssim_background": 0.9886,
+      "text_box_count": 1,
+      "montage_path": "pdf_test_result\\eval_ss\\page_001.png"
+    },
+    {
+      "page_index": 2,
+      "page_type": "text_layer",
+      "ssim_global": 0.6242,
+      "ssim_background": 0.993,
+      "text_box_count": 1,
+      "montage_path": "pdf_test_result\\eval_ss\\page_002.png"
+    },
+    {
+      "page_index": 3,
+      "page_type": "text_layer",
+      "ssim_global": 0.8208,
+      "ssim_background": 0.9975,
+      "text_box_count": 1,
+      "montage_path": "pdf_test_result\\eval_ss\\page_003.png"
+    }
+  ]
+}
