@@ -6,13 +6,14 @@ Cache key: hash(source_text + target_lang)
 
 import hashlib
 import json
-import os
 from pathlib import Path
 
 import anthropic
 
+from core.config import get_api_key, get_model
+
 _DEFAULT_CACHE_PATH = Path(__file__).parent.parent.parent / "cache" / "translations.jsonl"
-_MODEL = "claude-haiku-4-5-20251001"  # fast + cheap for bulk translation
+_MODEL = get_model("claude-haiku-4-5-20251001")
 
 
 def _cache_key(text: str, target_lang: str) -> str:
@@ -47,7 +48,7 @@ def translate_spans(
     Translate a list of span dicts in-place (adds 'translation' field).
     Returns the same list with 'translation' populated.
     """
-    client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
+    client = anthropic.Anthropic(api_key=get_api_key())
     cache = load_cache(cache_path)
 
     # Split into batches to avoid hitting token limits

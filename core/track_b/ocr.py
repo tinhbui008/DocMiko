@@ -19,14 +19,14 @@ Output schema per block:
 
 import base64
 import json
-import os
 from pathlib import Path
 
 import anthropic
 import fitz
 
+from core.config import get_api_key, get_model
 
-_MODEL = "claude-sonnet-4-6"
+_MODEL = get_model("claude-sonnet-4-6")
 
 _SYSTEM_PROMPT = """You are a PDF translation assistant.
 Given a page image, identify every text block visible on the page.
@@ -59,7 +59,7 @@ def ocr_page(pdf_path: str, page_idx: int, dpi: int = 150) -> list[dict]:
     Run Vision-LLM OCR on a single PDF page.
     Returns list of text block dicts with translations.
     """
-    client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
+    client = anthropic.Anthropic(api_key=get_api_key())
 
     img_bytes, width, height = page_to_image_b64(pdf_path, page_idx, dpi)
     img_b64 = base64.standard_b64encode(img_bytes).decode()

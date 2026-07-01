@@ -14,17 +14,29 @@ Output schema per span:
     "bbox": [x0, y0, x1, y1],
     "origin": [x, y],
 }
+
+Duplicate-span handling:
+Some PDFs layer identical text at the same position for shadow/glow effects.
+We keep only the FIRST occurrence of each (page, rounded-bbox, text) triple
+so downstream translation doesn't process and re-draw the same text N times.
 """
 
 import fitz
 
 
+def _bbox_key(bbox: list, page: int, text: str) -> tuple:
+    # Round to 1 decimal to tolerate sub-pixel jitter between layers
+    return (page, text, tuple(round(v, 1) for v in bbox))
+
+
 def extract_spans(pdf_path: str, page_indices: list[int] | None = None) -> list[dict]:
     """
     Extract all text spans from the given pages (or all pages if None).
+    Duplicate spans (same page + bbox + text) are silently dropped.
     """
     doc = fitz.open(pdf_path)
     spans = []
+    seen: set = set()
     pages = page_indices if page_indices is not None else range(len(doc))
 
     for page_idx in pages:
@@ -35,12 +47,19 @@ def extract_spans(pdf_path: str, page_indices: list[int] | None = None) -> list[
                 continue
             for l_idx, line in enumerate(block["lines"]):
                 for s_idx, span in enumerate(line["spans"]):
+                    text = span["text"]
+                    if not text.strip():
+                        continue  # skip blank spans
+                    key = _bbox_key(span["bbox"], page_idx, text)
+                    if key in seen:
+                        continue
+                    seen.add(key)
                     spans.append({
                         "page": page_idx,
                         "block": b_idx,
                         "line": l_idx,
                         "span": s_idx,
-                        "text": span["text"],
+                        "text": text,
                         "font": span["font"],
                         "size": span["size"],
                         "color": span["color"],
@@ -53,6 +72,7 @@ def extract_spans(pdf_path: str, page_indices: list[int] | None = None) -> list[
 
 if __name__ == "__main__":
     import sys, json
+    sys.stdout.reconfigure(encoding="utf-8")
     if len(sys.argv) < 2:
         print("Usage: python -m core.track_a.extractor <file.pdf>")
         sys.exit(1)
